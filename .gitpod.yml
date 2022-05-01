@@ -1,13 +1,5 @@
 image: ghcr.io/cpp-review-dune/introductory-review/dumux
 
-tasks:
-  - name: Say welcome
-    command: |
-      echo "Bienvenido(a) $USER!"
-      echo 'unset JAVA_TOOL_OPTIONS' >>~/.bashrc
-      echo 'alias update="yay -Syyu --noconfirm"' >>~/.bashrc
-      source ~/.bashrc
-
 github:
   prebuilds:
     # enable for the master/default branch (defaults to true)
