@@ -1,0 +1,12 @@
+################################
+# Dune module information file #
+################################
+
+# Name of the module
+Module: flow-test-dumux
+Version: 1.0
+Maintainer: jlealgom@unal.edu.co
+# Required build dependencies
+Depends: dumux
+# Optional build dependencies
+#Suggests:
