@@ -1,0 +1,8 @@
+add_subdirectory(2pinfiltration)
+add_subdirectory(1ptracer)
+add_subdirectory(biomineralization)
+add_subdirectory(shallowwaterfriction)
+add_subdirectory(freeflowchannel)
+add_subdirectory(1protationsymmetry)
+add_subdirectory(liddrivencavity)
+add_subdirectory(porenetwork_upscaling)

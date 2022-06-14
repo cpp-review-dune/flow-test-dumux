@@ -1,0 +1,38 @@
+{
+    "README.md" : [
+        "doc/_intro.md"
+    ],
+
+    "doc/1p.md" : [
+        "doc/1p_intro.md",
+        "properties_1p.hh",
+        "problem_1p.hh",
+        "spatialparams_1p.hh"
+    ],
+
+    "doc/tracer.md" : [
+        "doc/tracer_intro.md",
+        "properties_tracer.hh",
+        "problem_tracer.hh",
+        "spatialparams_tracer.hh"
+    ],
+
+    "doc/main.md" : [
+        "doc/main_intro.md",
+        "main.cc"
+    ],
+
+    "navigation" : {
+        "mainpage" : "README.md",
+        "subpages" : [
+            "doc/1p.md",
+            "doc/tracer.md",
+            "doc/main.md"
+        ],
+        "subtitles" : [
+            "Single-phase flow simulation setup",
+            "Tracer transport simulation setup",
+            "Main program flow"
+        ]
+    }
+}

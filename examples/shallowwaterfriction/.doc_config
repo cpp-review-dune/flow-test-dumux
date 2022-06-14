@@ -1,0 +1,29 @@
+{
+    "README.md" : [
+        "doc/_intro.md"
+    ],
+
+    "doc/swe.md" : [
+        "doc/swe_intro.md",
+        "properties.hh",
+        "problem.hh",
+        "spatialparams.hh"
+    ],
+
+    "doc/main.md" : [
+        "doc/main_intro.md",
+        "main.cc"
+    ],
+
+    "navigation" : {
+        "mainpage" : "README.md",
+        "subpages" : [
+            "doc/swe.md",
+            "doc/main.md"
+        ],
+        "subtitles" : [
+            "Shallow water flow simulation setup",
+            "Main program flow"
+        ]
+    }
+}
