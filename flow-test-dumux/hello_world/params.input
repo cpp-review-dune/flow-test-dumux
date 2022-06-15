@@ -1,11 +1,11 @@
 [TimeLoop]
 DtInitial = 1 # [s]
-TEnd = 1 # [s]
+TEnd = 5 # [s]
 
 [Grid]
 LowerLeft = 0 0
 UpperRight = 1 1
-Cells = 10 10
+Cells = 100 100
 
 [Problem]
 Name = 1ptestfv # name passed to the output routines
