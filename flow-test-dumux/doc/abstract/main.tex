@@ -1,0 +1,53 @@
+\documentclass[
+	a4paper,
+	abstract=true
+]
+{scrartcl}
+\usepackage{filecontents}
+
+\begin{filecontents}{\jobname.bib}
+	@article{richards_capillary_1931,
+  author  = {Richards, L. A.},
+  journal = {Physics},
+  title   = {Capillary conduction of liquids through porous mediums},
+  year    = {1931},
+  issn    = {0148-6349},
+  number  = {5},
+  pages   = {318--333},
+  volume  = {1},
+  doi     = {10.1063/1.1745010},
+  url     = {https://aip.scitation.org/doi/10.1063/1.1745010},
+}
+@phdthesis{bastian1999,
+  author  = {Bastian, Peter},
+  title   = {Numerical Computation of Multiphase Flows in Porous Media},
+  year    = {1999},
+  url     = {https://conan.iwr.uni-heidelberg.de/data/people/peter/pdf/Bastian_habilitationthesis.pdf},
+}
+\end{filecontents}
+
+\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
+\bibliographystyle{plain}
+\date{}
+
+
+\title{Physical phenomena that occur in the soil}
+\author{John Jairo Leal Gomez
+	\thanks{
+		National University of Colombia,
+		\texttt{jlealgom\MVAt unal.edu.co}}
+}
+\pagestyle{empty}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+	We consider the Richards equation~\cite{richards_capillary_1931} for groundwater flow
+	in porous media~\cite{bastian1999}
+
+\end{abstract}
+
+\nocite{*}
+\bibliography{\jobname}
+
+\end{document}

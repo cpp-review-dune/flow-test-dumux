@@ -1,0 +1,28 @@
+\documentclass{scrreprt}
+\usepackage{mathtools}
+
+\titlehead{
+  {\Large National University of Colombia
+  \hfill 2022
+  }\\
+  Math department
+}
+
+\title{Physical phenomena that occur in the soil}
+\subtitle{}
+\subject{}
+
+\author{John Jairo Leal Gomez}
+
+\begin{document}
+
+\maketitle
+
+\begin{align*}
+	\frac{\partial}{\partial t} S\left(p_{w}\right)-\nabla \cdot\left(K\left(p_{w}\right)\left(\nabla p_{w}-z\right)\right) & =q_{w} &  & \text { in } \Omega \times[0, T],              \\
+	p_{w}                                                                                                                   & =g     &  & \text { on } \partial \Omega_{D} \times[0, T], \\
+	-\left(K\left(p_{w}\right) \nabla p_{w}\right) \cdot v                                                                  & =j     &  & \text { on } \partial \Omega_{N} \times[0, T], \\
+	p_{w}(\cdot, 0)                                                                                                         & =p_{0} &  & \text { in } \Omega \times 0 .
+\end{align*}
+
+\end{document}
