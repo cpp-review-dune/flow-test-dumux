@@ -1,0 +1,15 @@
+[TimeLoop]
+DtInitial = 1e-1 # [s]
+TEnd = 400 # [s]
+MaxTimeStepSize = 1e-1 # [s]
+
+[Grid]
+UpperRight = 6 4
+Cells = 1 4096
+
+[Problem]
+Name = richardsanalyticalcc
+EnableGravity = true
+
+[Newton]
+EnableChop = true  # chop for better convergence
