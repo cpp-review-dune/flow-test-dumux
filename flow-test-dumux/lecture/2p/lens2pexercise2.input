@@ -1,0 +1,39 @@
+[TimeLoop]
+MaxTimeStepSize = 200                     # maximal time step size [s]
+TEnd = 1e4                                # end time of the simulation [s]
+DtInitial = 1e2                             # initial time step for the simulation [s]
+EpisodeLength = 1.0e5
+
+[Grid]
+LowerLeft = 0 0                             # lower left corner coordinates (x,y) [m]
+UpperRight = 3 2                            # upper right corner coordinates (x,y) [m]
+Cells = 75 50                               # grid resolution in (x,y) direction [-]
+
+[SpatialParams.Fine]
+Permeability = 9e-12        # intrinsic permeability of the fine porous medium [m^2]
+Porosity = 0.38             # porosity of the fine porous medium [-]
+BrooksCoreyLambda = 3.5     # pore size distribution parameter for the Brooks-Corey capillary pressure - saturation relationship in the fine soil [-]
+BrooksCoreyPcEntry = 500    # entry pressure for the Brooks-Corey capillary pressure - saturation relationship in the fine soil [Pa]
+Swr = 0.18                  # residual saturation of the wetting phase in the fine soil [-]
+Snr = 0.0                   # residual saturation of the nonwetting phase in the fine soil [-]
+
+[SpatialParams.Coarse]
+Permeability = 4.6e-10      # intrinsic permeability of the coarse porous medium [m^2]
+Porosity = 0.40             # porosity of the coarse porous medium [-]
+BrooksCoreyLambda = 2.0     # pore size distribution parameter for the Brooks-Corey capillary pressure - saturation relationship in the coarse soil [-]
+BrooksCoreyPcEntry = 200    # entry pressure for the Brooks-Corey capillary pressure - saturation relationship in the coarse soil [Pa]
+Swr = 0.05                  # residual saturation of the wetting phase in the coarse soil [-]
+Snr = 0.0                   # residual saturation of the nonwetting phase in the coarse soil [-]
+
+[SpatialParams]
+Temperature = 10.0 	   # temperature in the entire domain [°C]	
+
+[Boundary]
+LowerPressure = 1.19612e5                   # Dirichlet pressure value for the boundary condition at the lower boundary [Pa]
+UpperPressure = 1.0e5                       # Dirichlet pressure value for the boundary condition at the upper boundary [Pa]
+InfiltrationRate = 0.01                     # infiltration rate [kg/(ms)]
+InfiltrationEndTime = 10000                 # time when the infiltration process will stop [s]
+
+[Problem]
+Name = lens-2p
+EnableGravity = true

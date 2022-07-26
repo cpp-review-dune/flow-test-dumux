@@ -1,0 +1,36 @@
+[TimeLoop]
+MaxTimeStepSize = 5.0e6      # maximal time step size [s]
+TEnd = 5.0e7                 # end time of the simulation [s]
+DtInitial = 0.0625           # initial time step for the simulation [s]
+EpisodeLength = 5.0e6
+
+[Grid]
+UpperRight = 4 2             # upper right corner coordinates (x,y) [m]
+Cells = 40 20                # grid resolution in (x,y) direction [-]
+
+[SpatialParams.Fine]
+Permeability = 3.1e-11       # intrinsic permeability of the fine porous medium [m^2]
+Porosity = 0.2               # porosity of the fine porous medium [-]
+BrooksCoreyLambda = 3.5      # pore size distribution parameter for the Brooks-Corey capillary pressure-saturation relationship in the fine soil [-]
+BrooksCoreyPcEntry = 400     # entry pressure for the Brooks-Corey capillary pressure-saturation relationship in the fine soil [Pa]
+Swr = 0.05                   # residual saturation of the wetting phase in the fine soil [-]
+Snr = 0.3                    # residual saturation of the nonwetting phase in the fine soil [-]
+
+[SpatialParams.Coarse]
+Permeability = 4.6e-9        # intrinsic permeability of the coarse porous medium [m^2]
+Porosity = 0.6               # porosity of the coarse porous medium [-]
+BrooksCoreyLambda = 2.0      # pore size distribution parameter for the Brooks-Corey capillary pressure-saturation relationship in the coarse soil [-]
+BrooksCoreyPcEntry = 200     # entry pressure for the Brooks-Corey capillary pressure-saturation relationship in the coarse soil [Pa]
+Swr = 0.05                   # residual saturation of the wetting phase in the coarse soil [-]
+Snr = 0.1                    # residual saturation of the nonwetting phase in the coarse soil [-]
+
+[SpatialParams]
+Temperature = 283.15 	    # 10 degree Celcius for 2p problem and 1p2c problem, 40 degree Celcius for 2p2c problem
+
+[Boundary]
+LowerPressure = 2.0e5        # Dirichlet pressure value for the boundary condition at the lower boundary [Pa]
+UpperPressure = 4.0e5        # Dirichlet pressure value for the boundary condition at the upper boundary [Pa]
+
+[Problem]
+EnableGravity = false
+Name = exercise3

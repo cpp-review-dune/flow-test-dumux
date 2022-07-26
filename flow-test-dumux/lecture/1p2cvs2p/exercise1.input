@@ -1,0 +1,38 @@
+[TimeLoop]
+MaxTimeStepSize = 5.0e1                     # maximal time step size [s]
+TEnd = 5.0e3                                # end time of the simulation [s]
+DtInitial = 1e1                             # initial time step for the simulation [s]
+EpisodeLength = 5.0e1
+
+[Problem]
+Name = lens1p2cexercise1
+
+[Grid]
+UpperRight = 5 4                            # upper right corner coordinates (x,y) [m]
+Cells = 40 64                               # grid resolution in (x,y) direction [-]
+
+[SpatialParams]
+Temperature = 283.15		     # Temperature for the entire domain [K]
+
+Fine.Permeability = 3.1e-11                  # intrinsic permeability of the fine porous medium [m^2]
+Coarse.Permeability = 3.1e-10                # intrinsic permeability of the coarse porous medium [m^2]
+Fine.Porosity = 0.1                          # porosity of the fine porous medium [-]
+Coarse.Porosity = 0.2                        # porosity of the coarse porous medium [-]
+########
+Parameters only relevant for two-phase simulations:
+########
+Fine.BrooksCoreyLambda = 3.5                # pore size distribution parameter for the Brooks-Corey capillary pressure-saturation relationship in the fine soil [-]
+Fine.BrooksCoreyPcEntry = 400               # entry pressure for the Brooks-Corey capillary pressure-saturation relationship in the fine soil [Pa]
+Fine.Swr = 0.05                             # residual saturation of the wetting phase in the fine soil [-]
+Fine.Snr = 0.3                              # residual saturation of the nonwetting phase in the fine soil [-]
+Coarse.BrooksCoreyLambda = 2.0              # pore size distribution parameter for the Brooks-Corey capillary pressure-saturation relationship in the coarse soil [-]
+Coarse.BrooksCoreyPcEntry = 200             # entry pressure for the Brooks-Corey capillary pressure-saturation relationship in the coarse soil [Pa]
+Coarse.Swr = 0.05                           # residual saturation of the wetting phase in the coarse soil [-]
+Coarse.Snr = 0.1                            # residual saturation of the nonwetting phase in the coarse soil [-]
+########
+
+[Boundary]
+LowerPressure = 1.0e5                       # Dirichlet pressure value for the boundary condition at the lower boundary [Pa]
+UpperPressure = 1.01e5                      # Dirichlet pressure value for the boundary condition at the upper boundary [Pa]
+InfiltrationRate = 0.04                     # infiltration rate [kg/(ms)]
+InfiltrationEndTime = 1000                  # time when the infiltration process will stop [s]
