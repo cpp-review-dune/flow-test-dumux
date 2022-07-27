@@ -1,0 +1,31 @@
+[TimeManager]
+TEnd = 2e7                                  # end time of the simulation [s]
+DtInitial =  1e3                            # initial time step for the simulation [s]
+
+[Problem]
+EnableGravity = false
+
+[SpatialParams]
+Permeability = 1.01936799e-14               # intrinsic permeability of the porous medium [m^2]
+Porosity = 0.2                              # porosity of the porous medium [-]
+BrooksCoreyLambda = 4.0                     # pore size distribution parameter for the Brooks-Corey capillary pressure - saturation relationship [-]
+BrooksCoreyPcEntry = 0                      # entry pressure for the Brooks-Corey capillary pressure - saturation relationship [Pa]
+Swr = 0.2                                   # residual saturation of the wetting phase [-]
+Snr = 0.2                                   # residual saturation of the nonwetting phase [-]
+
+[Fluid]
+DensityW = 1e3                              # density of the wetting phase [kg/m^3]
+DensityNW = 1e3                             # density of the nonwetting phase [kg/m^3]
+ViscosityW = 1e-3                           # dynamic viscosity of the wetting phase [kg/(ms)]
+ViscosityNW = 1e-3                          # dynamic viscosity of the nonwetting phase [kg/(ms)]
+
+[Grid]
+UpperRight = 100 75                         # extension of the domain (x,y) [m]
+Cells = 20 1                                # grid resolution in (x, y) direction [-]
+                                            # maximum resolution in x-direction: 200, DO NOT change y-component (1D problem)
+
+[Output]
+ParaviewOutput = true                      # create output for either Paraview or ViPLab
+
+[Impet]
+CFLFactor = 0.1

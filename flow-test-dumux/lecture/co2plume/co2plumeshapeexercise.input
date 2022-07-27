@@ -1,0 +1,47 @@
+[TimeLoop]
+DtInitial = 250 # [s]
+EpisodeLength = 1e7 # [s]
+
+[Grid]
+UpperRight = 200 60 # upper right corner coordinates [m]
+Cells = 100 30 # number of cells in (x,y) directions [-]
+
+[FluidSystem]
+NTemperature = 3# [-]           number of tabularization entries
+NPressure = 200# [-]            number of tabularization entries
+PressureLow = 1e5# [Pa]         low end for tabularization of fluid properties
+PressureHigh = 3e7# [Pa]        high end for tabularization of fluid properties
+TemperatureLow = 283.15 # [Pa]  low end for tabularization of fluid properties
+TemperatureHigh = 320.15 # [Pa] high end for tabularization of fluid properties
+
+[Brine]
+Salinity = 0.1
+
+[SpatialParams]
+Permeability = 1e-13 # [m^2] intrinsic permeability
+DipAngle = 0.0 # [deg] dip angle for the domain
+Porosity = 0.3 # porosity
+Swr = 0.2  # [-] residual wetting phase sat.
+Snr = 0.2  # [-] residual nonwetting phase sat.
+BrooksCoreyPcEntry =  5e3  # [Pa] capillary entry pressure
+BrooksCoreyLambda = 2 # [-] Brooks Corey parameter
+
+[Problem]
+Name = co2plumeshape # the name of the output files
+
+[InitialConditions]
+Temperature = 283.15 # [K] initial temperature of injected CO2
+Pressure = 1.5e7 # [Pa] initial pressure
+
+[BoundaryConditions]
+InjectionRate = 0.001 # [kg/s] mass injection of CO2
+InjectionTemperature =  313.15 # [K] temperature of injected CO2
+
+[Component]
+SolidDensity = 2700
+SolidThermalConductivity = 2.8
+SolidHeatCapacity = 790
+
+[Newton]
+SatisfyResidualAndShiftCriterion = true
+ResidualReduction = 1e-7

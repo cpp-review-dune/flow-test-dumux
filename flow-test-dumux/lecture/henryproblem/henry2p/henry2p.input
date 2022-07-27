@@ -1,0 +1,15 @@
+[TimeLoop]
+DtInitial = 2.5 # [s]
+TEnd =1e12 # [s]
+MaxTimeStepSize = 1e9
+EpisodeLength = 1e9 # [s]
+
+[Grid]
+File = ./grids/henry.dgf
+
+[Problem]
+freshWaterFluxRate = 6.6e-2 # [kg/sm^2] fresh water flux rate at the left boundary (6.6E-2)
+Name = Henry2p
+
+[Flux]
+UpwindWeight = 1
