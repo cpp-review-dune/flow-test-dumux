@@ -24,6 +24,66 @@
   year    = {1999},
   url     = {https://conan.iwr.uni-heidelberg.de/data/people/peter/pdf/Bastian_habilitationthesis.pdf},
 }
+@article{Kochetal2020Dumux,
+  title = {DuMu\textsuperscript{x} 3 - an open-source simulator for solving
+           flow and transport problems in porous media with a focus on model
+           coupling},
+  journal = {Computers \& Mathematics with Applications},
+  year = {2020},
+  issn = {0898-1221},
+  doi = {10.1016/j.camwa.2020.02.012,
+  author = {Timo Koch and Dennis Gläser and Kilian Weishaupt and Sina
+            Ackermann and Martin Beck and Beatrix Becker and Samuel Burbulla and
+            Holger Class and Edward Coltman and Simon Emmert and Thomas Fetzer
+            and Christoph Grüninger and Katharina Heck and Johannes Hommel and
+            Theresa Kurz and Melanie Lipp and Farid Mohammadi and Samuel Scherrer
+            and Martin Schneider and Gabriele Seitz and Leopold Stadler and
+            Martin Utz and Felix Weinhardt and Bernd Flemisch},
+  keywords = {Porous media, Multi-phase flow, , Coupled problems, Open-source
+              software, Research software},
+  abstract = {We present version 3 of the open-source simulator for flow and
+              transport processes in porous media DuMux. DuMux is based on the
+              modular C++ framework Dune (Distributed and Unified Numerics
+              Environment) and is developed as a research code with a focus on
+              modularity and reusability. We describe recent efforts in improving
+              the transparency and efficiency of the development process and
+              community-building, as well as efforts towards quality assurance
+              and reproducible research. In addition to a major redesign of many
+              simulation components in order to facilitate setting up complex
+              simulations in DuMux, version 3 introduces a more consistent
+              abstraction of finite volume schemes. Finally, the new framework
+              for multi-domain simulations is described, and three numerical
+              examples demonstrate its flexibility.},
+}}
+@article{CHAVEZNEGRETE2018168,
+  title = {Numerical solution of Richards equation of water flow by generalized
+           finite differences},
+  journal = {Computers and Geotechnics},
+  volume = {101},
+  pages = {168-175},
+  year = {2018},
+  issn = {0266-352X},
+  doi = {https://doi.org/10.1016/j.compgeo.2018.05.003},
+  url = {https://www.sciencedirect.com/science/article/pii/S0266352X18301228},
+  author = {C. Chávez-Negrete and F.J. Domínguez-Mota and D. Santana-Quinteros},
+  keywords = {Richards equation, Linearization schemes, Generalized finite
+              differences, Iterative methods, Flow in porous media},
+  abstract = {Richards equation is a degenerate elliptic parabolic nonlinear
+              expression which models flow in unsaturated porous media. Due to
+              its importance in engineering, a number of linearization schemes
+              for approximating its solution have been proposed. Among the more
+              efficient are combinations of Newtonian iterations for the spatial
+              discretization using finite elements, and an implicit θ-method for
+              the time integration. However, when the finite element formulation
+              is used, numerical oscillations near the infiltration front are
+              presented. To overcome this problem, this paper presents a novel
+              generalized finite differences scheme and an adaptive step size
+              Crank-Nicolson method, which can be applied for solving Richards’
+              equation on nonrectangular structured grids. The proposed method is
+              tested on an illustrative numerical example on a road embankment
+              and the results are compared with a finite element method solution.
+              },
+}
 \end{filecontents}
 
 \newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
@@ -31,9 +91,13 @@
 \date{}
 
 
-\title{Physical phenomena that occur in the soil}
+\title{Simulación del fenómeno de infiltración de agua utilizando la ecuación de Richards para suelos agrícolas, utilizando DuMu\textsuperscript{x}} % Physical phenomena that occur in the soil
 \author{John Jairo Leal Gomez
 	\thanks{
+		National University of Colombia,
+		\texttt{jlealgom\MVAt unal.edu.co}}
+    \and Guillermo Alejandro Martínez Girón
+    \thanks{
 		National University of Colombia,
 		\texttt{jlealgom\MVAt unal.edu.co}}
 }
@@ -42,8 +106,15 @@
 \maketitle
 
 \begin{abstract}
-	We consider the Richards equation~\cite{richards_capillary_1931} for groundwater flow
-	in porous media~\cite{bastian1999}
+	El objetivo es simular el comportamiento del proceso de infiltración de agua en suelos agrícolas,
+	utilizando parámetros específicos tales como el tipo de suelo, la densidad, la porosidad,
+	la capacidad de retención de humedad, entre otros.
+	Se resolvió una ecuación diferencial no lineal de Richards, utilizando condiciones de frontera y
+	se simuló en módulo de DUNE llamado DuMu\textsuperscript{x}~\cite{Kochetal2020Dumux}, que ha sido
+	ampliamente utilizado para modelar fenómenos físicos en medios porosos.~\cite{CHAVEZNEGRETE2018168}
+	por qué es el interés de dichos estudios.
+	% We consider the Richards equation~\cite{richards_capillary_1931} for groundwater flow
+	% in porous media~\cite{bastian1999} using DuMu\textsuperscript{x}~\cite{Kochetal2020Dumux}.
 
 \end{abstract}
 
