@@ -3,57 +3,58 @@
 	abstract=true
 ]
 {scrartcl}
+\usepackage[colorlinks]{hyperref}
 \usepackage{filecontents}
 
 \begin{filecontents}{\jobname.bib}
-	@article{richards_capillary_1931,
-  author  = {Richards, L. A.},
-  journal = {Physics},
-  title   = {Capillary conduction of liquids through porous mediums},
-  year    = {1931},
-  issn    = {0148-6349},
-  number  = {5},
-  pages   = {318--333},
-  volume  = {1},
-  doi     = {10.1063/1.1745010},
-  url     = {https://aip.scitation.org/doi/10.1063/1.1745010},
+@article{richards_capillary_1931,
+author  = {Richards, L. A.},
+journal = {Physics},
+title   = {Capillary conduction of liquids through porous mediums},
+year    = {1931},
+issn    = {0148-6349},
+number  = {5},
+pages   = {318--333},
+volume  = {1},
+doi     = {10.1063/1.1745010},
+url     = {https://aip.scitation.org/doi/10.1063/1.1745010},
 }
 @phdthesis{bastian1999,
-  author  = {Bastian, Peter},
-  title   = {Numerical Computation of Multiphase Flows in Porous Media},
-  year    = {1999},
-  url     = {https://conan.iwr.uni-heidelberg.de/data/people/peter/pdf/Bastian_habilitationthesis.pdf},
+author  = {Bastian, Peter},
+title   = {Numerical Computation of Multiphase Flows in Porous Media},
+year    = {1999},
+url     = {https://conan.iwr.uni-heidelberg.de/data/people/peter/pdf/Bastian_habilitationthesis.pdf},
 }
 @article{Kochetal2020Dumux,
-  title = {DuMu\textsuperscript{x} 3 - an open-source simulator for solving
-           flow and transport problems in porous media with a focus on model
-           coupling},
-  journal = {Computers \& Mathematics with Applications},
-  year = {2020},
-  issn = {0898-1221},
-  doi = {10.1016/j.camwa.2020.02.012,
-  author = {Timo Koch and Dennis Gläser and Kilian Weishaupt and Sina
-            Ackermann and Martin Beck and Beatrix Becker and Samuel Burbulla and
-            Holger Class and Edward Coltman and Simon Emmert and Thomas Fetzer
-            and Christoph Grüninger and Katharina Heck and Johannes Hommel and
-            Theresa Kurz and Melanie Lipp and Farid Mohammadi and Samuel Scherrer
-            and Martin Schneider and Gabriele Seitz and Leopold Stadler and
-            Martin Utz and Felix Weinhardt and Bernd Flemisch},
-  keywords = {Porous media, Multi-phase flow, , Coupled problems, Open-source
-              software, Research software},
-  abstract = {We present version 3 of the open-source simulator for flow and
-              transport processes in porous media DuMux. DuMux is based on the
-              modular C++ framework Dune (Distributed and Unified Numerics
-              Environment) and is developed as a research code with a focus on
-              modularity and reusability. We describe recent efforts in improving
-              the transparency and efficiency of the development process and
-              community-building, as well as efforts towards quality assurance
-              and reproducible research. In addition to a major redesign of many
-              simulation components in order to facilitate setting up complex
-              simulations in DuMux, version 3 introduces a more consistent
-              abstraction of finite volume schemes. Finally, the new framework
-              for multi-domain simulations is described, and three numerical
-              examples demonstrate its flexibility.},
+title = {DuMu\textsuperscript{x} 3 - an open-source simulator for solving
+          flow and transport problems in porous media with a focus on model
+          coupling},
+journal = {Computers \& Mathematics with Applications},
+year = {2020},
+issn = {0898-1221},
+doi = {10.1016/j.camwa.2020.02.012,
+author = {Timo Koch and Dennis Gläser and Kilian Weishaupt and Sina
+          Ackermann and Martin Beck and Beatrix Becker and Samuel Burbulla and
+          Holger Class and Edward Coltman and Simon Emmert and Thomas Fetzer
+          and Christoph Grüninger and Katharina Heck and Johannes Hommel and
+          Theresa Kurz and Melanie Lipp and Farid Mohammadi and Samuel Scherrer
+          and Martin Schneider and Gabriele Seitz and Leopold Stadler and
+          Martin Utz and Felix Weinhardt and Bernd Flemisch},
+keywords = {Porous media, Multi-phase flow, , Coupled problems, Open-source
+            software, Research software},
+abstract = {We present version 3 of the open-source simulator for flow and
+            transport processes in porous media DuMux. DuMux is based on the
+            modular C++ framework Dune (Distributed and Unified Numerics
+            Environment) and is developed as a research code with a focus on
+            modularity and reusability. We describe recent efforts in improving
+            the transparency and efficiency of the development process and
+            community-building, as well as efforts towards quality assurance
+            and reproducible research. In addition to a major redesign of many
+            simulation components in order to facilitate setting up complex
+            simulations in DuMux, version 3 introduces a more consistent
+            abstraction of finite volume schemes. Finally, the new framework
+            for multi-domain simulations is described, and three numerical
+            examples demonstrate its flexibility.},
 }}
 @article{CHAVEZNEGRETE2018168,
   title = {Numerical solution of Richards equation of water flow by generalized
@@ -84,41 +85,53 @@
               and the results are compared with a finite element method solution.
               },
 }
+@online{colombia_2021,
+	Title = {Uso Eficiente y Ahorro del Agua \texttt{https://www.minambiente.gov.co/gestion-integral-del-recurso-hidrico/uso-eficiente-y-ahorro-del-agua}},
+	Author = {Ministerio de Ambiente y Desarrollo Sostenibles de Colombia},
+	Month = {June},
+	url = {https://www.minambiente.gov.co/gestion-integral-del-recurso-hidrico/uso-eficiente-y-ahorro-del-agua},
+	Year = {2021}
+}
 \end{filecontents}
-
 \newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
 \bibliographystyle{plain}
 \date{}
 
 
-\title{Simulación del fenómeno de infiltración de agua utilizando la ecuación de Richards para suelos agrícolas, utilizando DuMu\textsuperscript{x}} % Physical phenomena that occur in the soil
-\author{John Jairo Leal Gomez
+\title{Richards model for simulations of water infiltration in agricultural soil using DuMu\textsuperscript{x}}
+\author{John J. Leal Gomez
 	\thanks{
-		National University of Colombia,
+		Universidad Nacional de Colombia,
 		\texttt{jlealgom\MVAt unal.edu.co}}
-    \and Guillermo Alejandro Martínez Girón
+    \and Guillermo A. Martínez Girón
     \thanks{
-		National University of Colombia,
+    Universidad Nacional de Colombia,
 		\texttt{jlealgom\MVAt unal.edu.co}}
+    \and Carlos A. Aznarán Laos
+    \thanks{
+      Universidad Nacional de Ingeniería,
+		\texttt{caznaranl\MVAt uni.pe}}
 }
 \pagestyle{empty}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-	El objetivo es simular el comportamiento del proceso de infiltración de agua en suelos agrícolas,
-	utilizando parámetros específicos tales como el tipo de suelo, la densidad, la porosidad,
-	la capacidad de retención de humedad, entre otros.
-	Se resolvió una ecuación diferencial no lineal de Richards, utilizando condiciones de frontera y
-	se simuló en módulo de DUNE llamado DuMu\textsuperscript{x}~\cite{Kochetal2020Dumux}, que ha sido
-	ampliamente utilizado para modelar fenómenos físicos en medios porosos.~\cite{CHAVEZNEGRETE2018168}
-	por qué es el interés de dichos estudios.
-	% We consider the Richards equation~\cite{richards_capillary_1931} for groundwater flow
-	% in porous media~\cite{bastian1999} using DuMu\textsuperscript{x}~\cite{Kochetal2020Dumux}.
-
+	The objective is to simulate water infiltration phenomena based on
+	the Richards model~\cite{richards_capillary_1931}, in agricultural
+	soils using specific parameters such as soil type, density,
+	porosity, matric potential, and moisture holding capacity, among
+	others.
+	The simulation was performed using
+	DuMu\textsuperscript{x}~\cite{Kochetal2020Dumux}, a C++ framework
+	for porous media applications.
+	Nowadays, these matters are crucial for agriculture due to the
+	concern for efficient use and saving of water~\cite{colombia_2021},
+	since large quantities of water are wasted annually for crops, and
+	it is necessary to contrast the results of the simulations with the
+	quantities currently used with traditional irrigation methods.
 \end{abstract}
 
-\nocite{*}
 \bibliography{\jobname}
 
 \end{document}
