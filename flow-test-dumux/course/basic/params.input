@@ -26,7 +26,7 @@ Aquifer.Swr = 0.2
 Aquifer.Snr = 0.0
 
 # these parameters are only used in the nonisothermal model. Uncomment them for that
-#[Component]
-#SolidDensity = 2700 # solid density of granite
-#SolidThermalConductivity = 2.8 # solid thermal conducitivity of granite
-#SolidHeatCapacity = 790 # solid heat capacity of granite
+[Component]
+SolidDensity = 2700 # solid density of granite
+SolidThermalConductivity = 2.8 # solid thermal conducitivity of granite
+SolidHeatCapacity = 790 # solid heat capacity of granite
