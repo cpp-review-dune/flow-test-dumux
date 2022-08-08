@@ -1,0 +1,26 @@
+[TimeLoop]
+DtInitial = 250 # [s]
+TEnd = 30000 # [s]
+
+[Grid]
+LowerLeft = 0 0
+UpperRight = 6 4
+Cells = 48 32
+
+[SpatialParams]
+LensLowerLeft = 1.0 2.0 # [m] coordinates of the lower left lens corner
+LensUpperRight = 4.0 3.0 # [m] coordinates of the upper right lens corner
+Lens.VanGenuchtenN = 7.3
+Lens.VanGenuchtenAlpha = 0.00045
+Lens.Swr = 0.18
+Lens.Snr = 0.0
+OuterDomain.VanGenuchtenN = 4.7
+OuterDomain.VanGenuchtenAlpha = 0.0037
+OuterDomain.Swr = 0.05
+OuterDomain.Snr = 0.0
+
+[Problem]
+Name = exercise_properties
+
+[Newton]
+MaxRelativeShift = 1e-5
