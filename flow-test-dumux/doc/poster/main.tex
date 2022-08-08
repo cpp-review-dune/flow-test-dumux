@@ -25,23 +25,22 @@
 \let\file\texttt
 \let\pck\textsf
 \let\cls\textsf
-
+\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
 
 \begin{document}
-
-\title{\pck{tcolorbox}-Poster-Template\\
-	der Berner Fachhochschule}
-\author{Marei Peischl\inst{*}\thanks{kontakt@peitex.de} \and der \TeX-Löwe}
-\institute{\inst{*}pei\TeX{} \TeX{}nical Solutions, Hamburg, Deutschland}
+% \pck{tcolorbox}-Poster-Template\\
+\title{Virtualization of scientific software based on Arch Linux in GitPod}
+\author{Carlos A. Aznarán Laos\inst{*}\thanks{caznaranl\MVAt uni.pe} \and John J. Leal Gomez\inst{**}\thanks{jlealgom\MVAt unal.edu.co}}
+\institute{\inst{*}Universidad Nacional de Ingeniería, Lima, Peru\inst{**}Universidad Nacional de Colombia, Valle del Cauca, Colombia}
 %\inst kann in den Autor und Institutsfeldern genutzt werden um eine Zuordnung zu ermöglichen. Bei Nummerierung ist der Nutzer dafür verantwortlich Konflikte mit \thanks zu vermeiden.
 %\titlegraphic{\includegraphics[width=10cm]{example-image}}
-\footerqrcode{https://www.peitex.de}
-\footer{Fusszeile: Falls neben den Logos andere Angaben erforderlich sind}
+\footerqrcode{https://aur.archlinux.org}
+\footer{Footer: If other information is required in addition to the logos}%Fusszeile: Falls neben den Logos andere Angaben erforderlich sind
 
 %Instituts/Sponsorenlogos von links nach rechts
 \footergraphics{
-	\includegraphics[height=\height]{example-image}
-	\includegraphics[height=\height]{example-image}
+	\includegraphics[height=\height]{archlinux-logo}
+	\includegraphics[height=\height]{pec3logo}
 }
 
 \begin{tcbposter}[
@@ -52,7 +51,7 @@
 				%		showframe, %Gitter einblenden. Für Platzierung häufig hilfreich
 			},]
 
-	\begin{posterboxenv}[,BFH-abstract,title=Zusammenfassung]{name=intro,column=1,row=1,span=4}
+	\begin{posterboxenv}[,BFH-abstract,title=Abstract]{name=intro,column=1,row=1,span=4} %Zusammenfassung
 		Die \cls{bfhsciposter}-Klasse basiert auf dem \pck{tcolorbox} Paket von Thomas F. Sturm.
 		Sie versucht einen einfachen Weg zu bieten, wissenschaftliche Poster im Stil des Vorporate Design der Berner Fachhochschule zu erstellen. Dieses Dokument dient zur Dokumentation und als Verwendungsbeispiel.
 
@@ -60,7 +59,7 @@
 	\end{posterboxenv}
 
 	% Titelei
-	\begin{posterboxenv}[title=Titelei]{name=title, row=2, span=2, rowspan=2}
+	\begin{posterboxenv}[title=Title]{name=title, row=2, span=2, rowspan=2}
 		Die Definition des Titelblockes lehnt sich an die Standard-\LaTeX{}-Strukturierung  mit Hilfe von \macro{maketitle} an.
 
 		Für die Datenübergabe stehen die Makros \macro{title}, \macro{author}, \macro{institute} und \macro{titlegraphic} zur Verfügung. Letztere wird Links vom Titelblock platziert, die Breite des Titels wird automatisch angepasst.
@@ -69,7 +68,7 @@
 	\end{posterboxenv}
 
 	% Fusszeile
-	\begin{posterboxenv}[title=Fusszeile]{name=footer,below=title, span=2, rowspan=2 }
+	\begin{posterboxenv}[title=Footer]{name=footer,below=title, span=2, rowspan=2 }
 		Die Fusszeile ist grundsätzlich aktiviert, kann jedoch mit Hilfe der Klassenoption \code{footer=false} ausgeschaltet werden. In diesem Fall werden jedoch mit \macro{thanks} übergebene zusätzliche Titeldaten nicht angezeigt.
 
 		Für die Übergabe weiterer Daten stehen die Makros \macro{footer}, \macro{footergraphics} und \macro{footerqrcode} zur Verfügung.
@@ -82,7 +81,7 @@
 	\end{posterboxenv}
 
 	% Platzierung der Boxen
-	\begin{posterboxenv}[title=Platzierung der Boxen]{name=positioning, below=footer, span=2}
+	\begin{posterboxenv}[title=Placement of the boxes]{name=positioning, below=footer, span=2}
 		Bei der \pck{poster}-Bibliothek des \pck{tcolorbox} Paketes, werden die Boxen manuell positioniert.
 
 		Dies benötigt zwar einen zusätzlichen Arbeitsschritt, erlaubt jedoch einer feinere Ausrichtung der Boxen, auch relativ zueinander.
@@ -91,12 +90,12 @@
 	\end{posterboxenv}
 
 	% Eine Box im Stil BFH-framed
-	\begin{posterboxenv}[title=Eine Box im Stil BFH-framed, BFH-framed]{name=framed, column=3, row=2, span=2}
+	\begin{posterboxenv}[title=A BFH-framed style box, BFH-framed]{name=framed, column=3, row=2, span=2}
 		Die Boxen können in verschiedenen Varianten gestaltet werden. Die Voreinstellung entspricht den offiziellen Vorgaben, jedoch kann es aus unterschiedlichen Gründen notwendig sein, eine klarere Abgrenzung zu setzen (lobale Klassenoption \code{boxstyle=framed} oder lokaler Stil \code{BFH-framed}).
 	\end{posterboxenv}
 
 	%% Eine Box im Stil BFH-colored
-	\begin{posterboxenv}[title=Eine Box im Stil BFH-colored, BFH-colored]{name=colored, column=3, row=3, span=2}
+	\begin{posterboxenv}[title=A BFH-colored style box, BFH-colored]{name=colored, column=3, row=3, span=2}
 		Boxentyp zwischen dem Stil \code{framed} und dem Stil \code{official}.
 
 		Einstellung dieser Option ist sowohl über die Nutzung der globalen Klassenoption \code{style=colored} als auch durch die Verwendung des lokalen Stils\code{BFH-colored} möglich.
@@ -115,7 +114,7 @@
 	\end{posterboxenv}
 
 	Box mit Verweis
-	\begin{posterboxenv}[title=Box mit Verweis,BFH-framed]{name=verweis,column=4, above=row6}
+	\begin{posterboxenv}[title=Box with reference,BFH-framed]{name=verweis,column=4, above=row6}
 		Beispielbox mit Pfeil, um zwei Boxen miteinander zu verknüpfen oder Leseabzweigungen zu generieren.
 	\end{posterboxenv}
 
@@ -125,12 +124,12 @@
 	\draw[BFH-Orange,line width=4pt,->] ([yshift=-1cm]TCBPOSTER@verweis.east) -|  ([xshift=1cm]TCBPOSTER@colored.east) -- (TCBPOSTER@colored.east);
 
 	% Relative Positionierung
-	\begin{posterboxenv}[title=Relative Positionierung,BFH-framed]{name=relative, column=4, between=notitle and verweis}
+	\begin{posterboxenv}[title=Relative Positioning,BFH-framed]{name=relative, column=4, between=notitle and verweis}
 		Diese Box wird zwischen den beiden Boxen \code{notitle} und \code{verweis} platziert.
 	\end{posterboxenv}
 
 	% Papierformat
-	\begin{posterboxenv}[title=Papierformat]{name=paper,column=3,span=2,below=row5}
+	\begin{posterboxenv}[title=Paper size]{name=paper,column=3,span=2,below=row5}
 		Die Klasse \cls{BFHsciposter} unterstützt die Papierformate A0, A1, A2 und A3. Der Wert wird über die Klassenoption \code{paper} ausgewählt:
 
 		\begin{verbatim}
