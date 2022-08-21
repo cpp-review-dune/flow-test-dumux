@@ -1,2 +1,3 @@
 add_subdirectory(analytical)
 add_subdirectory(annulus)
+add_subdirectory(benchmarks)
