@@ -1,0 +1,8 @@
+add_input_file_links()
+add_executable("richardsni_evaporation_box" evaporation.cc)
+target_compile_definitions("richardsni_evaporation_box" PRIVATE TYPETAG=RichardsNIEvaporationCC)
+target_link_dune_default_libraries("richardsni_evaporation_box")
+
+add_executable("richardsni_evaporation_tpfa" evaporation.cc)
+target_compile_definitions("richardsni_evaporation_tpfa" PRIVATE TYPETAG=RichardsNIEvaporationBox)
+target_link_dune_default_libraries("richardsni_evaporation_tpfa")

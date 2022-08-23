@@ -1,0 +1,8 @@
+add_input_file_links()
+add_executable("richardsni_convection_box" convection.cc)
+target_compile_definitions("richardsni_convection_box" PRIVATE TYPETAG=RichardsNIConvectionBox)
+target_link_dune_default_libraries("richardsni_convection_box")
+
+add_executable("richardsni_convection_tpfa" convection.cc)
+target_compile_definitions("richardsni_convection_tpfa" PRIVATE TYPETAG=RichardsNIConvectionCC)
+target_link_dune_default_libraries("richardsni_convection_tpfa")

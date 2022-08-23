@@ -1,11 +1,11 @@
 [TimeLoop]
 DtInitial = 1e-1 # [s]
-TEnd = 400 # [s]
-MaxTimeStepSize = 1e-1 # [s]
+TEnd = 50 # [s]
+MaxTimeStepSize = 1e-2 # [s]
 
 [Grid]
 UpperRight = 6 4
-Cells = 1 4096
+Cells = 1 256
 
 [Problem]
 Name = richardsanalyticalcc

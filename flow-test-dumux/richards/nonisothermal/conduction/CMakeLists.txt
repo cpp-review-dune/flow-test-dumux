@@ -1,0 +1,8 @@
+add_input_file_links()
+add_executable("richardsni_conduction_box" conduction.cc)
+target_compile_definitions("richardsni_conduction_box" PRIVATE TYPETAG=RichardsNIConductionBox)
+target_link_dune_default_libraries("richardsni_conduction_box")
+
+add_executable("richardsni_conduction_tpfa" conduction.cc)
+target_compile_definitions("richardsni_conduction_tpfa" PRIVATE TYPETAG=RichardsNIConductionCC)
+target_link_dune_default_libraries("richardsni_conduction_tpfa")
