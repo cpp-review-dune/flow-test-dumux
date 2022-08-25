@@ -1,0 +1,152 @@
+\documentclass[
+paper=a5paper,
+fontsize=15]{scrreport}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage[ISO]{diffcoeff}
+\setcounter{secnumdepth}{0}
+
+\begin{document}
+
+Based on \emph{dynamics of fluids in porous media} by Jacob Bear.
+
+\tableofcontents
+
+\section{Fluid density at $P$}
+
+\begin{equation*}
+\boxed{
+\rho\left(P\right) =
+\lim\limits_{\substack{\Delta U_{i}\to\Delta U_{0}}}\rho_{i} =
+\lim\limits_{\substack{\Delta U_{i}\to\Delta U_{0}}}\frac{\Delta m_{i}}{\Delta U_{i}}.
+}
+\end{equation*}
+
+\begin{description}
+	\item[$\Delta m_{i}$] mass of water.
+	\item[$\Delta U$] volume occupied.
+	\item[$\rho_{i}$] average density.
+	\item[$\Delta U_{0}$] characteristic volume.
+	\item[$P$] mathematical point.
+\end{description}
+
+\section{REV}
+
+\begin{description}
+	\item[REV] representative elementary volume associated with it
+\end{description}
+
+\section{Volumetric porosity at $P$}
+
+\begin{equation*}
+\boxed{
+n\left(P\right) =
+\lim\limits_{\substack{\Delta U_{i}\to\Delta U_{0}}}n_{i}\left\{\Delta U_{i}\left(P\right)\right\} =
+\lim\limits_{\substack{\Delta U_{i}\to\Delta U_{0}}}
+\frac{\left(\Delta U_{v}\right)_{i}\left(P\right)}{\Delta U_{i}}.
+}
+\end{equation*}
+
+\begin{description}
+	\item[$\Delta U_{0}$] representative elementary volume.
+\end{description}
+
+\section{Equations of state}
+
+\begin{equation*}
+\boxed{
+	\rho=\rho\left(p, T\right)\text{ or }f\left(p, \rho, T\right)=0.
+}
+\end{equation*}
+
+\begin{multicols}{3}
+\begin{description}
+	\item[$\rho$] fluid density.
+	\item[$p$] pressure.
+	\item[$T$] temperature.
+\end{description}
+\end{multicols}
+
+\section{Fluid compressibility}
+
+\begin{equation*}
+\boxed{
+\beta = \frac{1}{U}\diff{U}{p}=\frac{1}{\rho}\diff{\rho}{p}.
+}
+\end{equation*}
+
+for homogeneous fluid, $\diff{\rho}{p}=0$, i.e. $\rho$ is constant.
+
+\section{Modulus of elasticity}
+
+\begin{equation*}
+\boxed{
+E = -\diff{p}{U/U} = \diff{p}{\rho/\rho}.
+}
+\end{equation*}
+
+\section{Pore-size distribution}
+
+% https://upload.wikimedia.org/wikipedia/commons/a/ad/SoilTexture_USDA.svg
+
+\begin{equation*}
+\int_{0}^{\infty}\alpha\left(\delta\right)\dl\delta=1.
+\quad\left(\text{distribution}\right)
+\end{equation*}
+
+\begin{description}
+	\item[$\delta$] pore diameter.
+	\item[$\delta\leq\alpha\leq\delta+\dl\delta$] fraction of the total pore volume.
+\end{description}
+
+\section{Volumetric porosity}
+
+\begin{equation*}
+\boxed{
+n = 
+\frac{U_{v}}{U_{b}} = 
+\frac{\left(U_{b}-U_{s}\right)}{U_{b}}.
+}
+\end{equation*}
+
+\begin{description}
+	\item[$U_{v}$] volume of the void space $U_{v}$.
+	\item[$U_{b}$] bulk volume of porous media.
+	\item[$U_{s}$] volume of solids within $U_{b}$.
+\end{description}
+
+\section{Effective porosity}
+
+\begin{equation*}
+	n_{e} =
+	\frac{\left(U_{v}\right)_{e}}{U_{b}},\quad
+	\left(U_{v}\right)_{e} + \left(U_{v}\right)_{ne} = U_{v}.
+\end{equation*}
+
+\begin{description}
+	\item[$\left(U_{v}\right)_{e}$] interconnected pore volume.
+	\item[$U_{b}$] total volume of the medium.
+	\item[$\left(U_{v}\right)_{ne}$] noneffective volume.
+\end{description}
+
+\section{Specific surface}
+
+\begin{equation*}
+M = \frac{A_{s}}{U_{b}}
+\end{equation*}
+
+\begin{description}
+	\item[$A_{s}$] total interstitial surface area of the pores.
+	\item[$U_{b}$] bulk volume of the porous medium.
+\end{description}
+
+\section{Coefficient of bulk compressibility}
+
+\begin{equation*}
+	\alpha^{\prime}_{b} =
+	-\frac{1}{U_{b}}\diff{U_{b}}{\sigma}
+\end{equation*}
+
+\end{document}
+
+%\phi=\frac{}{}.
