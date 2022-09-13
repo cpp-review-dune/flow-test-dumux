@@ -1,0 +1,405 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dunestyle-beamer}[%
+	2018/06/06 beamer presentations using the WWU corporate design%
+]
+
+% Usage: Just put \usepackage{dunestyle-beamer} in the preamble of your .tex
+%        file!
+%        Available options:
+%        - course: enable course header
+%        - cursointroductorio: enable course header (spanish version)
+%        - nopagenumbering:   disables slide numbering
+%        - fullpagenumbering: displays total slide number in addition to
+%                             current slide number
+%
+% Maintainers: Christian Engwer <christi@dune-project.org>
+
+\RequirePackage{calc}
+\RequirePackage{fontspec}
+%\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{QTHelvet-Black}
+\setmonofont{Fira Code}[
+	Contextuals=Alternate,  % Activate the calt feature
+	Scale=MatchLowercase
+]
+%\RequirePackage{lmodern}
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\RequirePackage{relsize}
+\RequirePackage{calc}
+\usetikzlibrary{calc}
+%\usetikzlibrary{math}
+%\usetikzlibrary{patterns}
+%\usetikzlibrary{decorations.pathmorphing,fit,shapes,arrows,intersections,calc,trees,positioning}
+\usetikzlibrary{positioning}
+
+%\newcommand*\lstinputpath[1]{\lstset{inputpath=#1}}
+
+% by default give only current page number
+\newcommand*{\@@insert@framenumber}{\insertframenumber}
+% decide whether the page number should show up
+\DeclareVoidOption{nopagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{}
+}
+\DeclareVoidOption{fullpagenumbering}{
+	\renewcommand*{\@@insert@framenumber}{%
+		\insertframenumber\,\vrule width0.8pt height7pt depth 3pt\,\inserttotalframenumber%
+	}
+}
+
+% by default use the simple header
+\newcommand*{\@@insert@duneheader}{%
+	\node[anchor=north,inner sep=0, minimum width=\paperwidth, minimum height=1.305cm] (header)
+	at (current page.north) {~};
+	\node[anchor=west,inner sep=5mm,color=duneorange]
+	at (header.west) {%
+		\fontfamily{phv}
+		\selectfont\LARGE
+		\textbf{DUNE/PDELab Tutorials}};
+}
+% decide whether the page number should show up
+\DeclareVoidOption{course}{
+	\renewcommand*{\@@insert@duneheader}{%
+		\node[anchor=north,inner sep=0] (header)
+		at (current page.north) {%
+			\includegraphics[width=\paperwidth]{duneslides-logo-v2}};
+		\node[anchor=west,inner sep=5mm,color=duneorange]
+		at (header.west) {%
+			\fontfamily{phv}
+			\selectfont\LARGE
+			\textbf{DUNE/PDELab Course \the\year}};
+	}
+}
+
+\DeclareVoidOption{cursointroductorio}{
+	\renewcommand*{\@@insert@duneheader}{%
+		\node[anchor=north,inner sep=0] (header)
+		at (current page.north) {%
+			\includegraphics[width=\paperwidth]{duneslides-logo-v2}};
+		\node[anchor=west,inner sep=5mm,color=c++reviewduneblue!50!c++reviewduneverde]
+		at (header.west) {%
+			\sffamily
+			%\fontfamily{phv}
+			\selectfont\LARGE
+			\textbf{C++ Review DUNE}};
+	}
+}
+
+\ProcessKeyvalOptions*
+
+\usetheme{default}
+%  \usecolortheme{crane}
+\setbeamercovered{invisible}
+%  \setbeamercovered{transparent}
+%  \setlength{\parindent}{0pt}
+%  \setlength{\parskip}{1.35ex plus 0.5ex minus 0.3ex}
+%  \usefonttheme{structuresmallcapsserif}
+\usefonttheme{structurebold}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{footline}[frame number]%{\rule{1mm}{5mm}}
+\setbeamercolor{footlinecolor}{bg=black!50}
+\setbeamercolor{structure}{fg=c++reviewduneblue}
+% switch off the navigation symbols
+\beamertemplatenavigationsymbolsempty
+
+\setbeamerfont{title}{
+	size=\Huge,
+	% family=\sffamily,
+	%family=\fontfamily{phv},
+	%series=\mdseries
+	series=\bfseries
+}
+\setbeamerfont{subtitle}{
+	size=\LARGE,
+	family=\sffamily,
+	series=\mdseries
+}
+\setbeamerfont{frametitle}{
+	family=\sffamily,
+	%family=\fontfamily{phv}
+	series=\mdseries
+}
+
+% headline
+\setbeamertemplate{headline}{%
+	% \fontsize{6pt}{1pt}%
+	% \selectfont%
+	% {%
+	% 	\begin{tikzpicture}[remember picture, overlay]
+	% 		\node[xshift=0.5cm, yshift=-1cm, anchor=south west, inner sep=0]
+	% 			at (current page.north west) {...};
+	% 		\node[xshift=3.5cm, yshift=-1cm, anchor=south west, inner sep=0]
+	% 			at (current page.north west) {!!!};
+	% 	\end{tikzpicture}
+	% }%
+	% \hfill%
+	% \bfseries%
+	% \color{red}%
+	% \let\bgbox\relax\insertshorttitle%
+	% % same space to the right as text margin
+	% \hspace{0.5cm}%
+	% invisible rule to set headline height
+	\rule{0pt}{14mm}%
+}
+
+\setbeamertemplate{footline}{%
+	% \begin{beamercolorbox}[wd=\paperwidth]{footlinecolor}
+	% 	\fontsize{6pt}{1pt}%
+	% 	\selectfont%
+	% 	\color{maincolor}%
+	% 	\rule{\textwidth}{0.8pt}% horizontal line
+	% 	\vskip1mm%
+	% 	%\vskip2mm%
+	% 	\hspace{5mm}%
+	% 	\color{wwu-textcolor}%
+	% 	\let\bgbox\relax\insertshortauthor%
+	% 	\vrule height7pt depth3pt width0pt\hfill%
+	% 	\fontsize{9pt}{12pt}%
+	% 	\selectfont%
+	% 	\color{maincolor}%
+	% 	\bfseries%
+	% 	\hspace{5mm}%
+	% 	\strut%
+	% 	\vskip1mm%
+	% 	%\vskip3mm%
+	% \end{beamercolorbox}%
+	\rule{0mm}{6mm}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south east] at (current page.south east) {\textcolor{gray}{\@@insert@framenumber}};%
+	\end{tikzpicture}
+}
+
+% frame title
+\setbeamertemplate{frametitle}{%
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[
+			anchor=west,
+			yshift=-0.65cm,
+			inner sep=5mm
+		] at (current page.north west){%
+			\parbox{\textwidth}{
+				\fontsize{14pt}{14pt}
+				\selectfont
+				\bfseries
+				\structure{\insertframetitle}
+				\par
+				\ifx\insertframesubtitle\empty%
+				\else
+					\fontsize{11pt}{11pt}
+					\selectfont
+					% set frame subtitles in pantoneblack7
+					% (which is darker than the color of normal text)
+					\color{dunedarkblue}
+					\mdseries
+					\insertframesubtitle
+				\fi%
+			}
+		};
+		\draw[
+			color=c++reviewduneblue!50!c++reviewduneverde,
+			line width=.5mm,
+			transform canvas={yshift=-1.305cm}
+		] (current page.north west) -- (current page.north east);
+	\end{tikzpicture}
+	% \if\beamer@centered\vspace*{-2mm}\fi
+	%\vspace*{-13.3mm+7mm}
+	\vspace*{-6.3mm}
+}
+
+\setbeamertemplate{title page}{%
+	\setlength{\unitlength}{1mm}%
+	\begin{tikzpicture}[remember picture,overlay]
+		\draw[
+			color=c++reviewduneblue!50!c++reviewduneverde,
+			line width=.5mm,
+			transform canvas={yshift=-1.305cm}
+		] (current page.north west) -- (current page.north east);
+		\@@insert@duneheader{}%
+		\node[
+			anchor=south west,
+			inner sep=7mm
+		] (imgleft)
+		at (current page.south west) {
+			\includegraphics[
+				width=0.55\paperwidth
+			]{duneslides-left}};
+		\node[anchor=west] at (imgleft.east) {
+			\parbox{0.3\paperwidth}{%
+				% \normalsize Speaker:\\\\
+				% \insertauthor\\
+				\insertinstitute}};
+		\node[
+			yshift=-2cm
+		] at (header.south) {
+			\parbox{\paperwidth}{%
+				\centering
+				\color{c++reviewduneblue}
+				\usebeamerfont{title}
+				\inserttitle\\
+				\usebeamerfont{subtitle}
+				\insertsubtitle}};
+	\end{tikzpicture}
+}
+
+\setbeamertemplate{part page}{%
+	\setlength{\unitlength}{1mm}%
+	\begin{tikzpicture}[remember picture,overlay]
+		\draw[
+			color=duneorange,
+			line width=.5mm,
+			transform canvas={yshift=-1.305cm}
+		] (current page.north west) -- (current page.north east);
+		\@@insert@duneheader{}%
+		\node[yshift=-2cm] at (header.south) {
+			\parbox{\paperwidth}{%
+				\centering
+				\usebeamerfont{title}
+				\inserttitle\\
+				\usebeamerfont{subtitle}
+				(Part \thepart: \insertpart)}};
+		\begin{onlyenv}<1>
+			\node[
+				anchor=south west,
+				inner sep=7mm
+			] (imgleft)
+			at (current page.south west) {
+				\includegraphics[
+					width=0.55\paperwidth
+				]{duneslides-left}};
+			\node[
+				anchor=west
+			] at (imgleft.east) {
+				\parbox{0.3\paperwidth}{%
+					\normalsize Speaker:\\\\
+					\insertauthor\\
+					\insertinstitute}};
+		\end{onlyenv}
+	\end{tikzpicture}
+	\vspace*{0.5\textheight}
+	\mbox{}
+}
+
+\definecolor{darkgray}{gray}{0.4}
+
+\definecolor{niceblue}{rgb}{0.122,0.396,0.651}   %% 31, 101, 166 or #1F65A6
+\definecolor{niceorange}{RGB}{255,205,86}        %% #FFCD56
+\definecolor{nicered}{RGB}{220,20,60}                      %% rgb(220, 20, 60)
+\definecolor{niceteal}{HTML}{00A9AB}
+\definecolor{niceviolet}{HTML}{820080}
+
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
+\definecolor{dunedarkblue}{rgb}{0.22, 0.29, 0.49}
+\definecolor{dunemediumblue}{rgb}{0.35, 0.45, 0.71}
+\definecolor{dunelightblue}{rgb}{0.61, 0.68, 0.85}
+\definecolor{duneorange}{rgb}{0.91, 0.56, 0.25}
+
+\definecolor{niceblueLight}{HTML}{91CAFB}
+\definecolor{niceblueVeryLight}{HTML}{DDEFFF}
+
+\definecolor{c++reviewduneblue}{HTML}{120032}
+\definecolor{c++reviewduneverde}{HTML}{08FFDC}
+
+\RequirePackage{tcolorbox}
+\RequirePackage{verbatim}
+\RequirePackage{listings}
+\RequirePackage{lstfiracode}
+
+\renewcommand{\lstlistingname}{Listado}
+% \lstset{language=C++, basicstyle=\ttfamily,
+%   keywordstyle=\color{black}\bfseries, tabsize=4, stringstyle=\ttfamily,
+%   commentstyle=\it, extendedchars=true, escapeinside={/*@}{@*/}}
+\lstset{
+language=C++,
+style=FiraCodeStyle,
+basicstyle=\lst@ifdisplaystyle\smaller[2]\fi\ttfamily,
+keywordstyle=\bfseries,
+tabsize=4,
+stringstyle=\ttfamily,
+morekeywords={decltype},
+extendedchars=true,
+escapeinside={/*@}{@*/},
+moreliterate=
+	{;;}{{;;}}2
+{///}{{///}}3
+}
+\lstset{
+	keywordstyle=\color{green!40!black},
+	commentstyle=\itshape\color{blue!30!black!40!white},
+	stringstyle=\color{blue!60!black!60!white},
+	emph={bool,int,unsigned,char,true,false,void},
+	emphstyle=\color{red!80!black},
+	emph={[2]\#include,\#define,\#ifdef,\#endif},
+	emphstyle={[2]\color{green!60!black}},
+	emph={[3]Dune,Grid,SomeGrid,TheGrid,LeafIterator,LevelIterator,LeafIntersectionIterator,LevelIntersectionIterator,Geometry,GeometryType,QuadraturePoint,QuadratureRule,PDELab,Entity,EntityPointer,Codim,FieldVector,FieldMatrix},
+	emphstyle={[3]\color{dunedarkblue}}
+}
+
+\newenvironment{codeblock}{%
+	\begin{tcolorbox}[
+			size=small,
+			oversize,
+			boxrule=0pt,
+			opacityframe=0,
+			colback=blue!30!black!5!white
+		]}{%
+	\end{tcolorbox}}
+\makeatletter
+\newwrite\lstvrb@out
+\newenvironment{cppcode}{%
+	\begingroup
+	\@bsphack
+	\immediate\openout\lstvrb@out\jobname.lst
+	\let\do\@makeother\dospecials\catcode`\^^M\active
+	\def\verbatim@processline{%
+		\immediate\write\lstvrb@out{\the\verbatim@line}}%
+	\verbatim@start}{%
+	\immediate\closeout\lstvrb@out
+	\@esphack
+	\endgroup
+	\begin{codeblock}
+		\vspace*{-1ex}
+		\lstinputlisting[inputpath=.]{\jobname.lst}
+		\vspace*{-1ex}
+	\end{codeblock}}
+\makeatother
+\newcommand{\rightarrownice}{\tikz{%
+		\draw[
+			-latex,
+			line width=2pt,
+			color=structure.fg
+		]   (0pt,0pt) -- +(2em,0) node[thin,right] {};}}
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+		language=Python,
+		basicstyle=\ttm,
+		morekeywords={self},              % Add keywords here
+		keywordstyle=\ttb\color{deepblue},
+		emph={MyClass,__init__},          % Custom highlighting
+		emphstyle=\ttb\color{deepred},    % Custom highlighting style
+		stringstyle=\color{deepgreen},
+		showstringspaces=false
+	}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+	\pythonstyle
+	\lstset{#1}
+}
+{}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "slidesgrid"
+%%% End:

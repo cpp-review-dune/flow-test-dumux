@@ -1,33 +1,19 @@
-\documentclass{beamer}
-
-\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
-
-\title{Richards model for simulations of water infiltration in agricultural soil using DuMu\textsuperscript{x}}
-\author{John J. Leal Gomez
-	\thanks{
-		Universidad Nacional de Colombia,
-		\texttt{jlealgom\MVAt unal.edu.co}}
-    \and Guillermo A. Martínez Girón
-    \thanks{
-    Universidad Nacional de Colombia,
-		\texttt{jlealgom\MVAt unal.edu.co}}
-    \and Carlos A. Aznarán Laos
-    \thanks{
-      Universidad Nacional de Ingeniería,
-		\texttt{caznaranl\MVAt uni.pe}}
-}
+\input{dumux-conference-preamble}
 
 \begin{document}
 
-% 1. Presentación del problema de infiltración de agua
-% 1.1 Ventajas de la simulación % Arley ayuda, sin tantas ecuaciones.
-% Optimizar el uso del agua en el suelo, lograr el mayor contacto entre las capas periféricas de la raíz del suelo. 1 gota de aceite contamina un litro de agua. riego por surco, problema del percolación, los nutrientes son llevados, ejemplo con el café tradicional. problema
-% cantidad desmedida de agua porque el suelo pierde sus nutrientes, %60% de eficiencia
-% ejemplo de la caña: pesticidas, exceso de agua, etc (ciclo).
-% el perder agua es mucho más caro para la humanidad.
-% aportar a la agricultura de precisión
-% ruta apoplástica (explica la interacción de la raíz agua)
-% % el efecto de las algas (dia/noche) se puede explicar con el cloropasto () y la mitocondria (respiración)
+\input{cover}
+\input{introduction}
+\input{dune}
+% \input{modules}
+\input{dumux}
+% \input{archiso}
+
+% \input{blbliography}
+\input{thanks}
+
+\end{document}
+
 % 2. La ecuación de Richards
 % 2.1. Deducción de la ecuación de Richards (1D o 2D) (Mencionar Darcy)
 % 2.1.1 Solución analítica y sus curvas solución con gráficas.
@@ -41,23 +27,5 @@
 % 
 % Bibliograf'ia
 
-\begin{frame}
-	\maketitle
-\end{frame}
-
-\section{}
-
-\begin{frame}
-\frametitle{\secname}
-\end{frame}
-
-\begin{frame}
-
-\end{frame}
-
-
-\begin{frame}
-
-\end{frame}
-
-\end{document}
+% https://player.vimeo.com/video/572717824
+% https://cpp-review-dune.github.io/webinar/slides.pdf (spanish)

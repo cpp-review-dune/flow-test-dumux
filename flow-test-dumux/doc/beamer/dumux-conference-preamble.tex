@@ -1,0 +1,128 @@
+\documentclass[
+	spanish,
+	9pt,
+	xcolor=table,
+	handout,
+	aspectratio=169,
+	%ignorenonframetext
+]{beamer}
+
+\usepackage[spanish]{babel}
+\usepackage[
+	cursointroductorio,
+	fullpagenumbering
+]{dunestyle-beamer}
+\usepackage{caption}
+%\usepackage{svg}
+%\graphicspath{{./images}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{dirtree}
+%\setbeameroption{show notes on second screen=right}
+\usepackage[backend=biber,style=numeric, defernumbers=true, sorting=ynt,maxbibnames=4,maxcitenames=4]{biblatex}
+\addbibresource{dune-webinar-references.bib}
+
+\title{
+	Richards model for simulations of water infiltration in agricultural soil using DuMu\textsuperscript{x}
+}
+\subtitle{
+	Parte I:
+	\lstinline{bash}
+}
+
+\author{}
+\institute[]
+{
+	\noindent
+	Practique los ejemplos en Gitpod
+
+	\href{https://gitpod.io\#/https://github.com/cpp-review-dune/dune-webinar}{\includegraphics[width=4.5cm]{open-in-gitpod}}
+
+	\vfill
+
+	\begin{minipage}{0.12\paperwidth}
+		Disponible en
+	\end{minipage}%
+	\hfill%
+	\begin{minipage}{0.18\paperwidth}
+		\href{https://github.com/cpp-review-dune/dune-webinar}{\includegraphics[width=1.2cm]{GitHub-Mark-120px-plus}}
+	\end{minipage}
+
+	\vfill
+
+	\begin{minipage}{0.26\paperwidth}
+		¡Únete al grupo en Telegram!
+	\end{minipage}%
+	\hfill%
+	\begin{minipage}{0.04\paperwidth}
+		\href{https://t.me/joinchat/OsfYP1xnFlxjN2Ix}{\includegraphics[width=1.2cm]{telegram-logo}}
+	\end{minipage}
+}
+
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+		or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+		or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+{\list{}
+	{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item}
+
+\newcommand{\lgpllicense}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{lgpl-v3-logo}%
+	\endgroup
+}
+
+\newcommand{\debian}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{debian}%
+	\endgroup
+}
+
+\newcommand{\ubuntu}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{ubuntu}%
+	\endgroup
+}
+
+\newcommand{\opensuse}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{opensuse}%
+	\endgroup
+}
+
+\newcommand{\archlinux}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{archlinux}%
+	\endgroup
+}
+
+\newcommand{\freebsd}{%
+	\begingroup\normalfont
+	\includegraphics[height=2\fontcharht\font`\B]{freebsd}%
+	\endgroup
+}
+
+\newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
+
+\providecommand{\interval}[1]{
+	\directlua{
+		local oldsumstr,sumstr = difference(#1)
+		tex.print("\string\\textbf{Time estimation}: " .. #1 .. " seconds." ..
+		"\string\\hfill" .. "$t\string\\in" .. "\string\\left[" ..
+				oldsumstr .. "," .. sumstr .. "\string\\right]" .. "$" .. " min.")
+	}
+}
