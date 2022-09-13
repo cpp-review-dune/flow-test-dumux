@@ -18,6 +18,8 @@
 \RequirePackage{fontspec}
 %\defaultfontfeatures{Ligatures=TeX}
 \setmainfont{QTHelvet-Black}
+\usepackage[mathrm=sym]{unicode-math}
+\setmathfont{Fira Math}
 \setmonofont{Fira Code}[
 	Contextuals=Alternate,  % Activate the calt feature
 	Scale=MatchLowercase
@@ -310,18 +312,18 @@
 %   keywordstyle=\color{black}\bfseries, tabsize=4, stringstyle=\ttfamily,
 %   commentstyle=\it, extendedchars=true, escapeinside={/*@}{@*/}}
 \lstset{
-language=C++,
-style=FiraCodeStyle,
-basicstyle=\lst@ifdisplaystyle\smaller[2]\fi\ttfamily,
-keywordstyle=\bfseries,
-tabsize=4,
-stringstyle=\ttfamily,
-morekeywords={decltype},
-extendedchars=true,
-escapeinside={/*@}{@*/},
-moreliterate=
-	{;;}{{;;}}2
-{///}{{///}}3
+  language=C++,
+  style=FiraCodeStyle,
+  basicstyle=\lst@ifdisplaystyle\smaller[2]\fi\ttfamily,
+  keywordstyle=\bfseries,
+  tabsize=4,
+  stringstyle=\ttfamily,
+  morekeywords={decltype},
+  extendedchars=true,
+  escapeinside={/*@}{@*/},
+  moreliterate=
+  {;;}{{;;}}2
+  {///}{{///}}3
 }
 \lstset{
 	keywordstyle=\color{green!40!black},
