@@ -1,58 +1,82 @@
-\section{DUNE for Multi-\{Phase, Component, Scale, Physics, \ldots\} flow and transport in porous media}
-\subsection{Introduction}
+\section{Introduction}
+% \subsection{DUNE for Multi-\{Phase, Component, Scale, Physics, \ldots\} flow and transport in porous media}
 
 \begin{frame}
 	\frametitle{\secname}
-	\framesubtitle{\subsecname}
+	% \framesubtitle{\subsecname}
 
 	\begin{alertblock}{DUNE for Multi-\{Phase, Component, Scale, Physics, \ldots\} flow and transport in porous media (DuMu\textsuperscript{x})}
 		\note{
-			Título: ``Una introducción a la caja de herramientas DUNE en C++/Python
-			para la solución de modelos matemáticos''.
-			Se hará una breve presentación de  la caja de herramientas modular Dune Numerics, biblioteca modular desarrollada en la  Universidad de Heildeberg en C++ y Python, para resolver ecuaciones
-			diferenciales parciales utilizando métodos basados en mallas, por ejemplo diferencias finitas, elementos finitos o volúmenes finitos.
+			Título: Una introducción a la caja de herramientas DUNE en
+			C++/Python para la solución de modelos matemáticos.
 
-			Es un software  de código abierto bajo la licencia GNU General Public Licence 2, con binarios disponibles para las distribuciones linux Debian, Ubuntu y openSUSE; y
+			Se hará una breve presentación de la caja de herramientas
+			modular Dune Numerics, biblioteca modular desarrollada en la
+			Universidad de Heildeberg en C++ y Python, para resolver
+			ecuaciones diferenciales parciales utilizando métodos basados
+			en mallas, por ejemplo diferencias finitas, elementos finitos o
+			volúmenes finitos.
+
+			Es un software de código abierto bajo la licencia GNU General
+			Public Licence 2, con binarios disponibles para las
+			distribuciones linux Debian, Ubuntu y openSUSE; y
 			los scripts de compilación en macOS, FreeBSD, Arch Linux.
 
-			Se mostrará la estructura general, algunos proyectos basados en DUNE y algunas simulaciones de modelos matemáticos que incluyen éste tipo de ecuaciones y sus respectivas soluciones, así como una implementación breve de Dune Numerics.
+			Se mostrará la estructura general, algunos proyectos basados en
+			DUNE y algunas simulaciones de modelos matemáticos que incluyen
+			éste tipo de ecuaciones y sus respectivas soluciones, así como
+			una implementación breve de Dune Numerics.
 		}
-		\begin{itemize}
+		\begin{itemize}\small
 			\item
 
-			      Software de código abierto bajo la licencia GNU Lesser General Public License 3~\lgpllicense{}.
+			      DuMu\textsuperscript{x} is a free and open-source simulator under the
+			      \href{https://www.gnu.org/licenses/lgpl-3.0.html}{
+				      GNU Lesser General Public License 3}~\lgpllicense{}.
 
-			% \item
+			\item
 
-			%       Disponible en
-			%       \href{https://github.com/dune-copasi/homebrew-tap}{macOS}, \href{https://packages.debian.org/search?suite=sid&section=all&arch=any&searchon=sourcenames&keywords=dune-}{Debian}~\debian{},
-			%       \href{https://launchpad.net/~opm/+archive/ubuntu/ppa}{Ubuntu}~\ubuntu{},
-			%       \href{https://build.opensuse.org/search?search_text=dune-&search_for=2&name=1&attrib_type_id=}{openSUSE}~\opensuse{},
-			%       \href{https://aur.archlinux.org/packages/?O=0&SeB=n&K=dune-&outdated=&SB=n&SO=a&PP=50&do_Search=Ir}{Arch Linux}~\archlinux{} y \href{https://www.freshports.org/search.php?stype=name&method=match&query=dune-&num=20&orderby=category&orderbyupdown=asc&search=Search&format=html&branch=head}{FreeBSD}~\freebsd{}.
+			      DUNE is available on
+			      \href{https://github.com/dune-copasi/homebrew-tap}{macOS},
+			      \href{https://packages.debian.org/search?suite=sid&section=all&arch=any&searchon=sourcenames&keywords=dune-}{Debian}~\debian{},
+			      \href{https://launchpad.net/~opm/+archive/ubuntu/ppa}{Ubuntu}~\ubuntu{},
+			      \href{https://build.opensuse.org/search?search_text=dune-&search_for=2&name=1&attrib_type_id=}{openSUSE}~\opensuse{},
+			      \href{https://aur.archlinux.org/packages/?O=0&SeB=n&K=dune-&outdated=&SB=n&SO=a&PP=50&do_Search=Ir}{Arch Linux}~\archlinux{}
+			      and \href{https://www.freshports.org/search.php?stype=name&method=match&query=dune-&num=20&orderby=category&orderbyupdown=asc&search=Search&format=html&branch=head}{FreeBSD}~\freebsd{}.
 
-			% \item
+			\item
 
-			%       Conjunto de bibliotecas C++ con enlaces a \href{https://pypi.org/search/?q=dune-}{Python}.
+			      Porous-Medium Flow, Non-Isothermal, Free Flow, Geomechanics, Pore-Network models.
+			      Multidomain, multi-component, multi-phase. Parallel, Grid Adaptivity.
+				      {\fontspec[Renderer=Harfbuzz]{NotoColorEmoji.ttf}🎉}
+			      Release 3.6.0 is planned for October 7, 2022.
 
-			%       \note{
-			% 	      Desarrollado con CMake, escrito en C++ con enlaces Python a través de pybind11.
+			      \note{
+				      Desarrollado con CMake, escrito en C++ con enlaces Python a través de pybind11.
 
-			%       }
-
-			% \item
-
-			%       Utilizado en la resolución de ecuaciones diferenciales parciales e implementación de métodos basados en mallas, por ejemplo diferencias finitas, elementos finitos o volúmenes finitos.
+			      }
 		\end{itemize}
 	\end{alertblock}
 
-	% \begin{figure}[ht!]
-	% 	\centering
-	% 	\includegraphics[height=4.2cm]{dunedesign}
-	% 	\caption{Tomado de \url{https://dune-project.org}.}
-	% \end{figure}
+	\begin{minipage}{0.45\textwidth}
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[height=3.2cm]{dunedesign}
+			\caption{Taken from \url{https://dune-project.org}.}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.45\textwidth}
+		\begin{figure}[ht!]
+			\centering
+			\href{https://repology.org/project/dumux/versions}{\includegraphics[height=0.7cm]{dumux-repology}} % dumux simulation picture
+			\caption{.}
+		\end{figure}
+	\end{minipage}
 
 \end{frame}
 
 % documentación https://git.iws.uni-stuttgart.de/dumux-repositories/dumux-course
 % página principal
 % lenguajes
+% https://player.vimeo.com/video/572717824
+% https://cpp-review-dune.github.io/webinar/slides.pdf

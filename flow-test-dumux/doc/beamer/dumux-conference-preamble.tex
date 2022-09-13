@@ -1,13 +1,14 @@
 \documentclass[
-	spanish,
+	% spanish,
 	9pt,
 	xcolor=table,
 	handout,
 	aspectratio=169,
+	c,
 	%ignorenonframetext
 ]{beamer}
 
-\usepackage[spanish]{babel}
+% \usepackage[spanish]{babel}
 \usepackage[
 	cursointroductorio,
 	fullpagenumbering
@@ -19,11 +20,19 @@
 \usepackage{longtable}
 \usepackage{dirtree}
 %\setbeameroption{show notes on second screen=right}
-\usepackage[backend=biber,style=numeric, defernumbers=true, sorting=ynt,maxbibnames=4,maxcitenames=4]{biblatex}
+\usepackage[
+	backend=biber,
+	style=numeric,
+	defernumbers=true,
+	sorting=ynt,
+	maxbibnames=4,
+	maxcitenames=4
+]{biblatex}
 \addbibresource{dune-webinar-references.bib}
 
 \title{
-	Richards model for simulations of water infiltration in agricultural soil using DuMu\textsuperscript{x}
+	Richards model for simulations of water infiltration in
+	agricultural soil using DuMu\textsuperscript{x}
 }
 \subtitle{
 	Parte I:
@@ -34,29 +43,11 @@
 \institute[]
 {
 	\noindent
-	Practique los ejemplos en Gitpod
+	Practice the examples on GitPod
 
-	\href{https://gitpod.io\#/https://github.com/cpp-review-dune/dune-webinar}{\includegraphics[width=4.5cm]{open-in-gitpod}}
-
-	\vfill
-
-	\begin{minipage}{0.12\paperwidth}
-		Disponible en
-	\end{minipage}%
-	\hfill%
-	\begin{minipage}{0.18\paperwidth}
-		\href{https://github.com/cpp-review-dune/dune-webinar}{\includegraphics[width=1.2cm]{GitHub-Mark-120px-plus}}
-	\end{minipage}
-
-	\vfill
-
-	\begin{minipage}{0.26\paperwidth}
-		¡Únete al grupo en Telegram!
-	\end{minipage}%
-	\hfill%
-	\begin{minipage}{0.04\paperwidth}
-		\href{https://t.me/joinchat/OsfYP1xnFlxjN2Ix}{\includegraphics[width=1.2cm]{telegram-logo}}
-	\end{minipage}
+	\href{https://gitpod.io\#/https://github.com/cpp-review-dune/flow-test-dumux}{
+		\includegraphics[width=4.5cm]{open-in-gitpod}
+	}
 }
 
 \setbeamertemplate{bibliography item}{%
