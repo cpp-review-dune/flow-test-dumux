@@ -14,17 +14,34 @@
 \subsection{Importancia}
 \subsection{Justificación}
 \subsection{Descripción del problema}
+\subsection{Ecological footprint of the water cycle on agriculture}
+
+\begin{frame}
+	\frametitle{\subsecname}
+	\begin{figure}[ht!]
+		\centering
+		\includegraphics[height=7cm]{contamination}
+	\end{figure}
+	\note{
+		En la diapositiva se muestra una de estas situaciones diarias.
+
+		También se tiene un anexo donde se estudia un software libre
+		como es \lstinline|wxmaxima|.
+	}
+\end{frame}
+
+
 \begin{frame}
 	\frametitle{\secname}
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.6\textwidth}
 		\begin{itemize}
 			\item .
 		\end{itemize}
 	\end{minipage}
-	\begin{minipage}{0.47\textwidth}
+	\begin{minipage}{0.37\textwidth}
 		\begin{figure}[ht!]
 			\centering
-			\includegraphics[height=5.5cm]{wasted_water}
+			\includegraphics[height=4cm]{wasted_water}
 			% https://proain.com/blogs/notas-tecnicas/calidad-del-agua-para-riego-agricola
 		\end{figure}
 	\end{minipage}
@@ -45,79 +62,44 @@
 		\end{figure}
 	\end{minipage}
 \end{frame}
-
-% https://i.pinimg.com/originals/34/66/77/34667762422298ffc10fec5252f28619.jpg
-\begin{frame}
-	\frametitle{\secname}
-	\begin{minipage}{0.47\textwidth}
-		\begin{figure}[ht!]
-			\centering
-			\href{https://www.uneditorial.com/las-matematicas-en-la-vida-real-introduccion-basica-el-modelamiento-matematico-matematica.html}{\includegraphics[height=5.5cm]{textural_soil}}
-		\end{figure}
-		\note{
-			Los autores, John Jairo Leal y Juan Pablo Cardona les
-			compartimos nuestro texto, y les contamos que es el producto
-			de varios proyectos educativos de modelamiento matemático en
-			las aulas en cursos de ingeniería.
-
-			Una de nuestras líneas de investigación es precisamente la
-			educación matemática para ingeniería y lo que esperamos es que
-			más personas y más profesionales se vinculen con aplicaciones
-			de matemáticas y con desarrollos futuros.
-		}
-	\end{minipage}
-	\begin{minipage}{0.5\textwidth}
-		\textsc{\Large Capítulos:}
-
-		\
-
-		\begin{enumerate}
-			\item
-
-			      Introducción a los números reales $\mathbb{R}$.
-
-			      \
-
-			\item
-
-			      Introducción a las funciones.
-		\end{enumerate}
-	\end{minipage}
-	\note{
-		En su estructura el texto es introductorio para los primeros
-		cursos de matemáticas, de hecho lo hemos utilizado en un curso
-		que se llama matemáticas básicas, estudia las funciones y las
-		derivadas y luego muestra algunos ejemplos de la vida cotidiana
-		y cómo éstos se pueden escribir utilizando los símbolos
-		matemáticos.
-	}
-\end{frame}
-
-\begin{frame}
-	\frametitle{\secname}
-	\begin{figure}[ht!]
-		\centering
-		\includegraphics[height=6.8cm]{contamination}
-	\end{figure}
-	\note{
-		En la diapositiva se muestra una de estas situaciones diarias.
-
-		También se tiene un anexo donde se estudia un software libre
-		como es \lstinline|wxmaxima|.
-	}
-\end{frame}
 % Irricad
 
 \begin{frame}
-	\frametitle{\secname}
-	\begin{figure}[ht!]
-		\centering
-		\includegraphics[height=6.8cm]{capillar_preassure}
-	\end{figure}
+	\begin{center}\Huge
+		What is the capillarity water soil?
+	\end{center}
 \end{frame}
 
+\subsection{Capillarity}
+
 \begin{frame}
-	\frametitle{\secname}
+	\frametitle{\subsecname}
+	\begin{minipage}{0.5\textwidth}
+		\begin{align*}
+			\Delta p=p_{\mathrm{a}}-p_{\mathrm{w}} & =
+			\sigma_{\mathrm{aw}}\left(\frac{1}{r_{\mathrm{c} 1}}+\frac{1}{r_{\mathrm{c} 2}}\right)
+			=\frac{2 \sigma_{\mathrm{aw}} \cos \psi}{r_{\mathrm{c}}}                                  \\[\baselineskip]
+			\sigma_{\mathrm{aw}}\cos\psi           & =\sigma_{\mathrm{Sa}}-\sigma_{\mathrm{Sw}},\quad
+			h_{\mathrm{c}} =\frac{1.5 \times 10^{-5}}{r_{\mathrm{c}}}
+		\end{align*}
+		\begin{itemize}
+			\item $\sigma_{\mathrm{aw}}$ is the surface tension of the air-water interface
+			\item $\sigma_{\mathrm{Sa}}$ is the surface tension of the solid-air interface
+			\item $\sigma_{\mathrm{Sw}}$ is the surface tension of the solid-water interface
+			\item $\psi$ is the wetting angle
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.47\textwidth}
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[height=6.2cm]{capillar_preassure}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+\subsection{Soil water content} % Humedad en el suelo
+\begin{frame}
+	\frametitle{\subsecname}
 	\begin{figure}[ht!]
 		\centering
 		\includegraphics[height=6.8cm]{wetness}
