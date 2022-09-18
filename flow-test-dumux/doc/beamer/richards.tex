@@ -1,0 +1,46 @@
+\section{Mathematical Model of Infiltration}
+
+\begin{frame}
+	\frametitle{\secname}
+
+	\begin{block}{Richards equation 1D}
+		La variación de la humedad respecto al tiempo es contraria
+		a la razón de cambio de infiltración con respeto a la profundidad.
+		% en la superficie hay más humedad y hay menos infiltración
+		% y a medida que avanza en el perfil del eje Z, más profundidad
+		\begin{equation*}
+			\frac{\partial \theta}{\partial t}=-\frac{\partial q}{\partial z}
+		\end{equation*}
+		where
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item $\theta$ is called the soil water content
+				\item $t$ is the time
+				\item $z$ is the soil depth
+				\item $q$ is the water infiltration rate
+			\end{itemize}
+		\end{multicols}
+	\end{block}
+
+	$$
+		q=-K \frac{\partial H}{\partial z}=-K \frac{\partial(h-z)}{\partial z}=-K\left(\frac{\partial h}{\partial z}-1\right)
+	$$
+
+	$$
+		\frac{\partial \theta}{\partial t}=\frac{\partial}{\partial z}\left[K\left(\frac{\partial h}{\partial z}-1\right)\right]
+	$$
+
+	$$
+		\left\{\begin{array}{l}
+			C(\theta)=\frac{\partial \theta}{\partial h} \\
+			D(\theta)=\frac{K}{C(\theta)}=\frac{K}{\frac{\partial \theta}{\partial h}}=K \frac{\partial h}{\partial \theta}
+		\end{array}\right.
+	$$
+
+	$$
+		\begin{gathered}
+			\frac{\partial \theta}{\partial t}=\frac{\partial}{\partial z}\left(D(\theta) \frac{\partial \theta}{\partial z}\right)-\frac{\partial K}{\partial z} \\
+			q(t)=-D \frac{\partial \theta}{\partial z}+K(\theta)
+		\end{gathered}
+	$$
+\end{frame}
