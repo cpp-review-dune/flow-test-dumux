@@ -32,4 +32,6 @@
 *.app
 
 build
+build-cmake
+dumux-test
 *.tar.zst
