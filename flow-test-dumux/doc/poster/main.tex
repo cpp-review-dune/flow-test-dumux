@@ -2,7 +2,7 @@
 %%
 
 \documentclass[
-	paper=a0,%Voreinstellung wäre a1
+	paper=a0,
 %	boxstyle= framed, % Boxen mit abgerundeten Ecken, farbigem Titelblock
 %	boxstyle=colored % Boxen mit farbigen Hintergrund
 %	boxstyle=default % Voreinstellung, keine sichtbare Box, farbiger Titel
@@ -11,13 +11,8 @@
 %	logo=head,% Logo im Titelblock anstatt der Fusszeile
 %	invert-colors % Orange/Blau im title,footer,logo getauscht. einzeln anwählbar über invert-title-colors,invert-footer-colors,invert-logo-colors
 	]{bfhsciposter}
-
-%Sprache
-% \usepackage[nswissgerman]{babel}
+%\usepackage[nswissgerman]{babel}
 \usepackage[autostyle]{csquotes}
-
-
-%Makros für dieses Beispieldokument. Im Allgemeinen nicht notwendig.
 \newcommand{\tbs}{\textbackslash}
 \newcommand{\repl}[1]{<\textit{#1}>}
 \let\code\texttt
@@ -44,49 +39,16 @@
 	url = {https://github.com/gitpod-io/gitpod},
 	Year = {2018}
 }
-@online{arch4edu2019,
+@online{arch4edu2022,
 	Title = {{A}rch {L}inux {R}epository for {E}ducation \url{https://github.com/arch4edu/arch4edu}},
 	Author = {Jingbei Li and Carlos Aznarán},
-	Month = {January},
+	Month = {September},
 	url = {https://github.com/arch4edu/arch4edu},
-	Year = {2019}
+	Year = {2022}
 }
-@article{Kochetal2020Dumux,
-title = {Du{M}u\textsuperscript{x} 3 - an open-source simulator for solving
-          flow and transport problems in porous media with a focus on model
-          coupling \url{https://doi.org/10.1016/j.camwa.2020.02.012}},
-journal = {Computers \& Mathematics with Applications},
-year = {2020},
-issn = {0898-1221},
-doi = {10.1016/j.camwa.2020.02.012,
-author = {Timo Koch and Dennis Gläser and Kilian Weishaupt and Sina
-          Ackermann and Martin Beck and Beatrix Becker and Samuel Burbulla and
-          Holger Class and Edward Coltman and Simon Emmert and Thomas Fetzer
-          and Christoph Grüninger and Katharina Heck and Johannes Hommel and
-          Theresa Kurz and Melanie Lipp and Farid Mohammadi and Samuel Scherrer
-          and Martin Schneider and Gabriele Seitz and Leopold Stadler and
-          Martin Utz and Felix Weinhardt and Bernd Flemisch},
-keywords = {Porous media, Multi-phase flow, , Coupled problems, Open-source
-            software, Research software},
-abstract = {We present version 3 of the open-source simulator for flow and
-            transport processes in porous media DuMux. DuMux is based on the
-            modular C++ framework Dune (Distributed and Unified Numerics
-            Environment) and is developed as a research code with a focus on
-            modularity and reusability. We describe recent efforts in improving
-            the transparency and efficiency of the development process and
-            community-building, as well as efforts towards quality assurance
-            and reproducible research. In addition to a major redesign of many
-            simulation components in order to facilitate setting up complex
-            simulations in DuMux, version 3 introduces a more consistent
-            abstraction of finite volume schemes. Finally, the new framework
-            for multi-domain simulations is described, and three numerical
-            examples demonstrate its flexibility.},
-}}
 @article{preCICEv2,
   author = {Chourdakis, G and Davis, K and Rodenberg, B and Schulte, M and Simonis, F and Uekermann,
-B and Abrams, G and Bungartz, HJ and Cheung Yau, L and Desai, I and Eder, K and Hertrich, R and Lindn
-r, F and Rusch, A and Sashko, D and Schneider, D and Totounferoush, A and Volland, D and Vollmer, P
-and Koseomur, OZ},
+B},
   title = {{preCICE} v2: A sustainable and user-friendly coupling library [version 1; peer review: 2
 approved]
   },
@@ -101,7 +63,7 @@ approved]
 \bibliographystyle{plain}
 
 \begin{document}
-% \pck{tcolorbox}-Poster-Template\\
+% \pck{tcolorbox}-Template\\
 \title{Virtualization of scientific software based on Arch Linux in GitPod}
 \author{
 	Carlos A. Aznarán Laos\inst{*}\thanks{caznaranl\MVAt uni.pe}\and
@@ -134,9 +96,7 @@ approved]
 				%		showframe, %Gitter einblenden. Für Platzierung häufig hilfreich
 			},]
 
-	\begin{posterboxenv}[,BFH-abstract,title=Abstract]{name=intro,column=1,span=4} %Zusammenfassung
-		% Die \cls{bfhsciposter}-Klasse basiert auf dem \pck{tcolorbox} Paket von Thomas F. Sturm.
-		% Sie versucht einen einfachen Weg zu bieten, wissenschaftliche Poster im Stil des Vorporate Design der Berner Fachhochschule zu erstellen. Dieses Dokument dient zur Dokumentation und als Verwendungsbeispiel.
+	\begin{posterboxenv}[,BFH-abstract,title=Abstract]{name=intro,column=1,span=4}
 		We developed an open source repository hosted on GitHub to use
 		scientific software based on the \href{https://archlinux.org}{Arch Linux distribution},
 		with an up-to-date software ecosystem that includes
@@ -156,96 +116,42 @@ approved]
 		GitPod~\cite{gitpod_2022}.
 	\end{posterboxenv}
 
-	% Titelei
-	\begin{posterboxenv}[title=C++ Review DUNE]{name=title, row=2, span=2, rowspan=2}
+	\begin{posterboxenv}[BFH-framed, title=C++ Review DUNE]{name=title, row=2, span=2, rowspan=2}
 		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
-		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
-		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
+		\url{https://cpp-review-dune.github.io/tutorial}
 
-		% Für die Datenübergabe stehen die Makros \macro{title}, \macro{author}, \macro{institute} und \macro{titlegraphic} zur Verfügung. Letztere wird Links vom Titelblock platziert, die Breite des Titels wird automatisch angepasst.
 		\includegraphics[width=\linewidth]{splash}
 		\captionof{figure}{
 			C++ Review DUNE says welcome and show useful links to get starting the code inside Gitpod.
-			% In diesem Fall sind der Stil {BFH} und BFH-colored identisch
 		}
 	\end{posterboxenv}
 
-	% Eine Box im Stil BFH-framed
-	\begin{posterboxenv}[title=C++ Review Dune meets Arch4edu, BFH-framed]{name=framed, column=3, row=2, span=2}
-		\url{https://github.com/orgs/cpp-review-dune/packages}
-		% Die Boxen können in verschiedenen Varianten gestaltet werden. Die Voreinstellung entspricht den offiziellen Vorgaben, jedoch kann es aus unterschiedlichen Gründen notwendig sein, eine klarere Abgrenzung zu setzen (lobale Klassenoption \code{boxstyle=framed} oder lokaler Stil \code{BFH-framed}).
-	\end{posterboxenv}
-
-	% Fusszeile
-	\begin{posterboxenv}[title=Tutorials running available on Gitpod]{name=footer,below=title, span=2, rowspan=4}
-		% Die Fusszeile ist grundsätzlich aktiviert, kann jedoch mit Hilfe der Klassenoption \code{footer=false} ausgeschaltet werden. In diesem Fall werden jedoch mit \macro{thanks} übergebene zusätzliche Titeldaten nicht angezeigt.
-
-		% Für die Übergabe weiterer Daten stehen die Makros \macro{footer}, \macro{footergraphics} und \macro{footerqrcode} zur Verfügung.
-
-		% \macro{footergraphics} ist für die Übergabe von Logos gedacht und \macro{footerqrcode} übernimmt einen URL die anschliessend in der rechten unteren Ecke als QRCode platziert wird.
-
-		% Die Fusszeile selbst erhält die Daten aus \macro{thanks}, kann jedoch ergänzt werden. Sie hat die Breite des Satzspiegels abzüglich der Logos/QRcode.
-
-		% Der Abstand zwischen Logo und den Inhalten des Fußes, sowie zu den Logos und dem QRcode im Fuß wird über die Länge \macro{footerhsep} gesteuert. Änderung ist über \macro{setlength} möglich.
-		\begin{itemize}
-			\item \url{https://gitlab.dune-project.org/pdelab/dune-pdelab-tutorials}
-			\item \url{https://precice.org/tutorials.html}
-			\item \url{https://dune-project.org/sphinx/content/sphinx/dune-fem}
-			\item \url{https://amdis.readthedocs.io/en/latest/tutorials/tutorials}
-			      % \item \url{https://www.openfoam.com/documentation/tutorial-guide}
-			\item \url{https://github.com/cpp-review-dune/dune-book}
-			\item \url{https://git.iws.uni-stuttgart.de/dumux-repositories/dumux-course}
-			      % \item \url{https://github.com/jorgensd/dolfinx-tutorial}
-			\item \url{https://parcomp-git.iwr.uni-heidelberg.de/Teaching/hdnum}
-			      % \item \url{https://github.com/cpp-review-dune/cmath-example}
-			      % \item \url{https://github.com/cpp-review-dune/hdnum-examples}
-			\item \url{https://github.com/cpp-review-dune/dune-basics}
-			      % \item \url{https://github.com/cpp-review-dune/notebook}
-		\end{itemize}
-
-		\includegraphics[width=\linewidth]{gitpod-working}
+	\begin{posterboxenv}[title=Tutorials available on Gitpod]{name=footer,below=title, span=2, rowspan=4}
+		\includegraphics[width=\linewidth]{gitpod_dune}
 		\captionof{figure}{
 			.
 		}
 	\end{posterboxenv}
 
-	%% Eine Box im Stil BFH-colored
-	\begin{posterboxenv}[title=A BFH-colored style box, BFH-colored]{name=colored, column=3, row=2, span=2}
-		\includegraphics[width=\linewidth]{sequence2}
-		\captionof{figure}{
-			Example of a fluid-structure interaction, e.g. fluid flowing through a channel in 2D.
-		}
+	\begin{posterboxenv}[title=C++ Review DUNE meets Arch4edu, BFH-framed]{name=colored, column=3, row=2, span=2}
+		Cactus, Distributed packaging system for Arch Linux with Github Actions, is a Django web application.
+		seeker, trigger, publisher
+		\url{https://github.com/orgs/cpp-review-dune/packages}
 	\end{posterboxenv}
 
-	\begin{posterboxenv}[BFH-framed]{name=notitle, column=4, below=colored}
-		Ein Beispiel für den Stil \code{framed} ohne einen eigenen Titel.
+	\begin{posterboxenv}[BFH-framed]{name=colored-notitle,column=3,row=3, rowspan=2}
+		\includegraphics[width=\linewidth]{sequence}
+		Example of a fluid-structure interaction, e.g. fluid flowing through a channel in 2D.
 	\end{posterboxenv}
 
-	% Box mit Verweis
-	% \begin{posterboxenv}[title=Box with reference,BFH-framed]{name=verweis,column=4, above=row6}
-	% 	Beispielbox mit Pfeil, um zwei Boxen miteinander zu verknüpfen oder Leseabzweigungen zu generieren.
-	% \end{posterboxenv}
+	\begin{posterboxenv}[BFH-framed]{column=4, below=colored}
+		\includegraphics[width=\linewidth]{sequence}
+		Example of a fluid-structure interaction, e.g. fluid flowing through a channel in 2D.
+	\end{posterboxenv}
 
-	% Zwischen den Boxen kann direkt TikZ-Code eingegeben werden. Das Namensschema der Boxen als Koordinaten lautet
-	% TCBPOSTER@<boxname>.ankerpunkt
-	% Für genauere Erläuterungen zur Syntax, bietet die tikz-Anleitung genauere Angaben, weitere benannte Koordinaten finden sich in der tcolorbox-Dokumentation
-	% \draw[BFH-Orange,line width=4pt,->] ([yshift=-1cm]TCBPOSTER@verweis.east) -|  ([xshift=1cm]TCBPOSTER@colored.east) -- (TCBPOSTER@colored.east);
-
-	% Relative Positionierung
-	% \begin{posterboxenv}[title=Relative Positioning,BFH-framed]{name=relative, column=4, between=notitle and verweis}
-	% 	Diese Box wird zwischen den beiden Boxen \code{notitle} und \code{verweis} platziert.
-	% \end{posterboxenv}
-
-	% Papierformat
 	\begin{posterboxenv}{name=notitle,column=3,span=2,below=row5}
-		\nocite{*} % Insert publications even if they are not cited in the poster
+		\nocite{*}
 		\bibliography{\jobname}
-		% Die Klasse \cls{BFHsciposter} unterstützt die Papierformate A0, A1, A2 und A3. Der Wert wird über die Klassenoption \code{paper} ausgewählt:
-		% \begin{verbatim}
-		% paper=a0
-		% \end{verbatim}
-		% Die Voreinstellung entspricht \code{a1}.
-
 		% PDF-Datei mit Paketen wie \pck{pdfpages} umzurechnen.
 	\end{posterboxenv}
 
