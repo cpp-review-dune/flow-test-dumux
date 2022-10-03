@@ -7,7 +7,7 @@ EpisodeLength = 1.0e5
 [Grid]
 LowerLeft = 0 0                             # lower left corner coordinates (x,y) [m]
 UpperRight = 3 2                            # upper right corner coordinates (x,y) [m]
-Cells = 75 50                               # grid resolution in (x,y) direction [-]
+Cells = 187 125                               # grid resolution in (x,y) direction [-]
 
 [SpatialParams.Fine]
 Permeability = 9e-12        # intrinsic permeability of the fine porous medium [m^2]
