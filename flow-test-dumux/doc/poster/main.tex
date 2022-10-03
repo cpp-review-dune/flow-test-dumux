@@ -27,7 +27,7 @@
 \begin{filecontents}{\jobname.bib}
 @online{bioarchlinux_2022,
 	Title = {{B}io{A}rchLinux: bioinformatics community with {A}rch {L}inux \url{https://doi.org/10.7490/f1000research.1119039.1}},
-	Author = {Zhang G. and Hu Y. and Drobot V.},
+	Author = {Zhang G. and Hu Y.},
 	Month = {July},
 	url = {https://doi.org/10.7490/f1000research.1119039.1},
 	Year = {2022}
@@ -49,15 +49,19 @@
 @article{preCICEv2,
   author = {Chourdakis, G and Davis, K and Rodenberg, B and Schulte, M and Simonis, F and Uekermann,
 B},
-  title = {{preCICE} v2: A sustainable and user-friendly coupling library [version 1; peer review: 2
-approved]
-  },
+  title = {{preCICE} v2: A sustainable and user-friendly coupling library},
   journal = {Open Research Europe},
   volume = {2},
   year = {2022},
   number = {51},
-  doi = {10.12688/openreseurope.14445.1},
-  url = {https://doi.org/10.12688/openreseurope.14445.1}
+}
+@article{Kochetal2020Dumux,
+title = {Du{M}u\textsuperscript{x} 3 - an open-source simulator for solving
+          flow and transport problems in porous media with a focus on model
+          coupling},
+journal = {Computers \& Mathematics with Applications},
+year = {2020},
+issn = {0898-1221},
 }
 \end{filecontents}
 \bibliographystyle{plain}
@@ -109,7 +113,7 @@ approved]
 		among others.
 		Unlike other projects such as
 		\href{https://github.com/BioArchLinux}{BioArchLinux}~\cite{bioarchlinux_2022}
-		or \href{https://github.com/arch4edu}{Arch Linux for education}~\cite{arch4edu2019},
+		or \href{https://github.com/arch4edu}{Arch Linux for education}~\cite{arch4edu2022},
 		we include some tutorials on GitHub Classroom to allow the practice
 		to any newcomer.
 		Automated deployed and available for free use allowing virtualization inside
@@ -126,22 +130,27 @@ approved]
 		}
 	\end{posterboxenv}
 
-	\begin{posterboxenv}[title=Tutorials available on Gitpod]{name=footer,below=title, span=2, rowspan=4}
+	\begin{posterboxenv}[BFH-framed,title=Tutorials available on Gitpod]{name=footer,below=title, span=2, rowspan=4}
 		\includegraphics[width=\linewidth]{gitpod_dune}
-		\captionof{figure}{
-			.
-		}
 	\end{posterboxenv}
 
-	\begin{posterboxenv}[title=C++ Review DUNE meets Arch4edu, BFH-framed]{name=colored, column=3, row=2, span=2}
+	\begin{posterboxenv}[title=C++ Review DUNE meets Arch Linux Repository for Education, BFH-framed]{name=colored, column=3, row=2, span=2}
 		Cactus, Distributed packaging system for Arch Linux with Github Actions, is a Django web application.
 		seeker, trigger, publisher
 		\url{https://github.com/orgs/cpp-review-dune/packages}
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed]{name=colored-notitle,column=3,row=3, rowspan=2}
-		\includegraphics[width=\linewidth]{sequence}
-		Example of a fluid-structure interaction, e.g. fluid flowing through a channel in 2D.
+		\includegraphics[width=\linewidth]{dumux_2p}
+		Example of water contamination due loses leaky oil while parking.
+		\[
+			v=
+			-\frac{1}{\mu}
+			K
+			\left(\nabla p+\rho g \nabla z\right).
+		\]
+		$p$ pressure, $K$ absolute permeability,
+		$\mu$ viscosity, $\rho$ density.
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed]{column=4, below=colored}
@@ -149,10 +158,16 @@ approved]
 		Example of a fluid-structure interaction, e.g. fluid flowing through a channel in 2D.
 	\end{posterboxenv}
 
-	\begin{posterboxenv}{name=notitle,column=3,span=2,below=row5}
+	\begin{posterboxenv}[BFH-framed,title=Images]{column=3,span=2,below=row4}
+		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
+		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
+		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
+		Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto. Texto texto texto.
+	\end{posterboxenv}
+
+	\begin{posterboxenv}[BFH-framed]{name=notitle,column=3,span=2,below=row5}
 		\nocite{*}
 		\bibliography{\jobname}
-		% PDF-Datei mit Paketen wie \pck{pdfpages} umzurechnen.
 	\end{posterboxenv}
 
 \end{tcbposter}
