@@ -1,17 +1,38 @@
+\section{Spatial parameters file}
 \begin{frame}[fragile]
-	\frametitle{Problem file} % Properties, Spatial parameters
-	\tiny
-	\lstinputlisting[
-		caption={Programa \texttt{spatialparams.hh}.},
-		label=spatialparams.hh,
-		firstline=39,
-		lastline=80
-	]{../../richards/lens/spatialparams.hh}
-	\note{
-		Se muestra un código minimo de un programa basado en Dune.
-		La forma de trabajo es importar las clases con las directivas %\lstinline|#include <dune/modulo/cabecera.hh>|
+	\frametitle{\secname} % Properties, Spatial parameters
+	\footnotesize
+	\begin{minipage}{0.6\textwidth}
+		\lstinputlisting[
+			% caption={Programa \texttt{spatialparams.hh}.},
+			label=spatialparams.hh,
+			firstline=39,
+			lastline=67
+		]{../../richards/lens/spatialparams.hh}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+		\lstinputlisting[
+			% caption={Programa \texttt{spatialparams.hh}.},
+			label=spatialparams.hh,
+			firstline=126,
+			lastline=145
+		]{../../richards/lens/spatialparams.hh}
+	\end{minipage}
+\end{frame}
 
-		\url{https://www.dune-project.org/sphinx/content/sphinx/dune-fem/mcf_nb.html}
-		Es una simulación dinámica.
-	}
+\section{Results}
+\begin{frame}
+	\frametitle{\secname}
+	\begin{minipage}{0.5\textwidth}
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[width=7.2cm]{infiltration_theta_vs_deltaeta}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+		\begin{figure}[ht!]
+			\centering
+			\includegraphics[width=7.2cm]{richard_lens}
+		\end{figure}
+	\end{minipage}
 \end{frame}

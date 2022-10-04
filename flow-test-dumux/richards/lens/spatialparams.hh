@@ -53,7 +53,6 @@ class RichardsLensSpatialParams
     using PcKrSwCurve = FluidMatrix::VanGenuchtenDefault<Scalar>;
 
 public:
-    // export permeability type
     using PermeabilityType = Scalar;
 
     RichardsLensSpatialParams(std::shared_ptr<const GridGeometry> gridGeometry)
