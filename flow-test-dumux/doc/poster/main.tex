@@ -21,6 +21,7 @@
 \let\pck\textsf
 \let\cls\textsf
 \newcommand{\MVAt}{{\usefont{U}{mvs}{m}{n}\symbol{`@}}}
+\usepackage{mathtools}
 \usepackage[colorlinks=false]{hyperref}
 \usepackage{filecontents}
 
@@ -81,8 +82,9 @@ issn = {0898-1221},
 %\inst kann in den Autor und Institutsfeldern genutzt werden um eine Zuordnung zu ermöglichen. Bei Nummerierung ist der Nutzer dafür verantwortlich Konflikte mit \thanks zu vermeiden.
 %\titlegraphic{\includegraphics[width=10cm]{example-image}}
 \footerqrcode{https://cpp-review-dune.github.io}
-\footer{\textbf{Website}: \url{https://github.com/cpp-review-dune}\\
-\MVAt arch4edu on Twitter.\\[\baselineskip]}%Fusszeile: Falls neben den Logos andere Angaben erforderlich sind
+\footer{
+	\textbf{Website}: \url{https://github.com/cpp-review-dune} \\
+	\MVAt arch4edu on Twitter. \\[\baselineskip]} %Fusszeile: Falls neben den Logos andere Angaben erforderlich sind
 
 %Instituts/Sponsorenlogos von links nach rechts
 \footergraphics{
@@ -101,9 +103,10 @@ issn = {0898-1221},
 				%		showframe, %Gitter einblenden. Für Platzierung häufig hilfreich
 			},]
 
-	\begin{posterboxenv}[,BFH-abstract,title=Abstract]{name=intro,column=1,span=4}
+	\begin{posterboxenv}[BFH-abstract,title=Abstract]{name=intro,column=1,span=4}
 		We developed an open source repository hosted on GitHub to use
-		scientific software based on the \href{https://archlinux.org}{Arch Linux distribution},
+		scientific software based on the
+		\href{https://archlinux.org}{Arch Linux distribution},
 		with an up-to-date software ecosystem that includes
 		\href{https://dune-project.org/doc/gettingstarted}{DUNE python bindings},
 		\href{https://dumux.org}{DuMu\textsuperscript{x}},
@@ -115,24 +118,32 @@ issn = {0898-1221},
 		Unlike other projects such as
 		\href{https://github.com/BioArchLinux}{BioArchLinux}~\cite{bioarchlinux_2022}
 		or \href{https://github.com/arch4edu}{Arch Linux for education}~\cite{arch4edu2022},
-		we include some tutorials on GitHub Classroom to allow the practice
-		to any newcomer.
-		Automated deployed and available for free use allowing virtualization inside
-		GitPod~\cite{gitpod_2022}.
+		we include some tutorials on GitHub Classroom to allow the
+		practice to any newcomer.
+		Automated deployed and available for free use allowing
+		virtualization inside GitPod~\cite{gitpod_2022}.
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed, title=C++ Review DUNE]{name=title, row=2, span=2, rowspan=2}
-		Teachers and students from Peru, Colombia and Mexico participated in the Dune PDELab course 2021 with the aim of modeling physical phenomena using scientific programming in C++. Arch Linux distribution was choosed since have a lot of up-to-date scientific software, e.g. the Dune modules were packaged in this distribution. Moreover,  available in Arch Linux for Education repository.
-		
+		Teachers and students from Peru, Colombia and Mexico participated
+		in the Dune PDELab course 2021 with the aim of modeling physical
+		phenomena using scientific programming in C++.
+		Arch Linux distribution was choosed since have a lot of
+		up-to-date scientific software, e.g. the Dune modules were
+		packaged in this distribution.
+		Moreover, available in Arch Linux for Education
+		repository.
+
 		\includegraphics[width=\linewidth]{splash}
-		%\captionof{figure}{
-		%	C++ Review DUNE says welcome and show useful links to get starting the code inside Gitpod.
-		%}
+		% \captionof{figure}{
+		% 	C++ Review DUNE says welcome and show useful links to get
+		% 	starting the code inside Gitpod.
+		% }
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed,title=Tutorials available on Gitpod
-		\\
-		\url{https://cpp-review-dune.github.io/tutorial}]{name=footer,below=title, span=2, rowspan=4}
+			\\
+			\url{https://cpp-review-dune.github.io/tutorial}]{name=footer,below=title, span=2, rowspan=4}
 		\includegraphics[width=\linewidth]{gitpod_dune}
 	\end{posterboxenv}
 
@@ -144,10 +155,12 @@ issn = {0898-1221},
 		\includegraphics[width=\linewidth]{dumux_2p}
 		Example of water contamination due loses leaky oil while parking.
 		\[
-			v=
-			-\frac{1}{\mu}
-			K
-			\left(\nabla p+\rho g \nabla z\right).
+			\boxed{
+				v=
+				-\frac{1}{\mu}
+				K
+				\left(\nabla p+\rho g \nabla z\right).
+			}
 		\]
 		$p$ pressure, $K$ absolute permeability,
 		$\mu$ viscosity, $\rho$ density.
@@ -159,11 +172,15 @@ issn = {0898-1221},
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed,title=GitHub's Docker registry
-		\\
-		\url{https://github.com/orgs/cpp-review-dune/packages}]{column=3,span=2,below=row4}
-		We use GitHub continuous integration and Docker registry for use enviroment gitpod with  tutorials about Dune Python bindings, DuMux,  Gmsh, preCICE, TeX Live to name a few, also users can run a USB stick or virtualization software
-		from \url{sourceforge.net/projects/dune-archiso}
-		Another hand, the Dune modules are tested in \url{gitlab.com/dune-archiso/testing/aur/dune-makepkg}. 
+			\\
+			\url{https://github.com/orgs/cpp-review-dune/packages}]{column=3,span=2,below=row4}
+		We use GitHub's continuous integration and Docker registry for
+		use GitPod's environment with tutorials about Dune Python
+		bindings, DuMu\textsuperscript{x}, Gmsh, preCICE, TeX Live to
+		name a few, also users can run a USB stick or virtualization
+		software from \url{sourceforge.net/projects/dune-archiso}.
+		On the other hand, the Dune modules are tested in
+		\url{gitlab.com/dune-archiso/testing/aur/dune-makepkg}.
 	\end{posterboxenv}
 
 	\begin{posterboxenv}[BFH-framed]{name=notitle,column=3,span=2,below=row5}

@@ -5,9 +5,9 @@ import numpy as np
 import subprocess
 
 # Run benchmark M2.1 infiltration scenarios
-subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_sand.input"])
-subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_loam.input"])
-subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_clay.input"])
+subprocess.run(["./benchmarks", "params_infiltration_sand.input"])
+subprocess.run(["./benchmarks", "params_infiltration_loam.input"])
+subprocess.run(["./benchmarks", "params_infiltration_clay.input"])
 
 try:
     import matplotlib.pyplot as plt

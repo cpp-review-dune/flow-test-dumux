@@ -4,7 +4,7 @@ TEnd = 10000 # [s]
 
 [Grid]
 UpperRight = 6 4
-Cells = 96 64
+Cells = 384 256
 
 [Problem]
 Name = richardslens

@@ -1,0 +1,79 @@
+[100%] Time step 21 done in 1.3e+02 seconds. Wall clock time: 4791.9, time: 10000, time step size: 572.98
+Simulation took 4791.9 seconds on 4 processes.
+The cumulative CPU time was 19168 seconds.
+
+Newton statistics
+----------------------------------------------
+-- Total Newton iterations:            412
+-- Total wasted Newton iterations:     181
+-- Total succeeded Newton iterations:  231
+-- Average iterations per solve:       11
+-- Number of linear solver breakdowns: 0
+
+
+Newton statistics
+----------------------------------------------
+-- Total Newton iterations:            412
+-- Total wasted Newton iterations:     181
+-- Total succeeded Newton iterations:  231
+-- Average iterations per solve:       11
+-- Number of linear solver breakdowns: 0
+
+
+Newton statistics
+----------------------------------------------
+-- Total Newton iterations:            412
+-- Total wasted Newton iterations:     181
+-- Total succeeded Newton iterations:  231
+-- Average iterations per solve:       11
+-- Number of linear solver breakdowns: 0
+
+
+Newton statistics
+----------------------------------------------
+-- Total Newton iterations:            412
+-- Total wasted Newton iterations:     181
+-- Total succeeded Newton iterations:  231
+-- Average iterations per solve:       11
+-- Number of linear solver breakdowns: 0
+
+# Runtime-specified parameters used:
+[ Grid ]
+Cells = "384 256"
+UpperRight = "6 4"
+[ LinearSolver ]
+Type = "bicgstabsolver"
+[ LinearSolver.Preconditioner ]
+AmgAccumulationMode = "atOnce"
+AmgMaxLevel = "2"
+Type = "amg"
+[ Newton ]
+EnableChop = "true"
+TargetSteps = "36"
+[ Problem ]
+EnableGravity = "true"
+Name = "richardslens"
+[ SpatialParams ]
+[ SpatialParams.Lens ]
+Snr = "0.0"
+Swr = "0.18"
+VanGenuchtenAlpha = "0.00045"
+VanGenuchtenN = "7.3"
+[ SpatialParams.OuterDomain ]
+Snr = "0.0"
+Swr = "0.05"
+VanGenuchtenAlpha = "0.0037"
+VanGenuchtenN = "4.7"
+[ TimeLoop ]
+DtInitial = "100"
+TEnd = "10000"
+
+# Global default parameters used:
+[ Assembly ]
+NumericDifferenceMethod = "1"
+[ Flux ]
+UpwindWeight = "1.0"
+[ TimeLoop ]
+MaxTimeStepSize = "1e300"
+[ Vtk ]
+AddVelocity = "false"
