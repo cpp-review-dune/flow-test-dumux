@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_LIDDRIVENCAVITY_EXAMPLE_PROPERTIES_HH
 #define DUMUX_LIDDRIVENCAVITY_EXAMPLE_PROPERTIES_HH
@@ -33,8 +21,10 @@
 // The single-phase flow Navier-Stokes equations are solved by coupling a momentum balance model to a mass balance model.
 #include <dumux/freeflow/navierstokes/momentum/model.hh>
 #include <dumux/freeflow/navierstokes/mass/1p/model.hh>
+#include <dumux/freeflow/navierstokes/momentum/problem.hh>
+#include <dumux/freeflow/navierstokes/mass/problem.hh>
 #include <dumux/multidomain/traits.hh>
-#include <dumux/multidomain/staggeredfreeflow/couplingmanager.hh>
+#include <dumux/multidomain/freeflow/couplingmanager.hh>
 
 // We want to use `YaspGrid`, an implementation of the dune grid interface for structured grids:
 #include <dune/grid/yaspgrid.hh>
@@ -81,24 +71,21 @@ struct FluidSystem<TypeTag, TTag::LidDrivenCavityExample>
     using Scalar = GetPropType<TypeTag, Properties::Scalar>;
     using type = FluidSystems::OnePLiquid<Scalar, Components::Constant<1, Scalar> >;
 };
-
-// We introduce the coupling manager to the properties system
-template<class TypeTag>
-struct CouplingManager<TypeTag, TTag::LidDrivenCavityExample>
-{
-private:
-    using Traits = MultiDomainTraits<TTag::LidDrivenCavityExampleMomentum, TTag::LidDrivenCavityExampleMass>;
-public:
-    using type = StaggeredFreeFlowCouplingManager<Traits>;
-};
-
 // This sets the grid type used for the simulation. Here, we use a structured 2D grid.
 template<class TypeTag>
 struct Grid<TypeTag, TTag::LidDrivenCavityExample> { using type = Dune::YaspGrid<2>; };
 
-// This sets our problem class (see problem.hh) containing initial and boundary conditions.
+// This sets our problem class (see problem.hh) containing initial and boundary conditions for the
+// momentum and mass subproblem.
 template<class TypeTag>
-struct Problem<TypeTag, TTag::LidDrivenCavityExample> { using type = Dumux::LidDrivenCavityExampleProblem<TypeTag> ; };
+struct Problem<TypeTag, TTag::LidDrivenCavityExampleMomentum>
+{ using type = LidDrivenCavityExampleProblem<TypeTag, Dumux::NavierStokesMomentumProblem<TypeTag>>; };
+
+template<class TypeTag>
+struct Problem<TypeTag, TTag::LidDrivenCavityExampleMass>
+{ using type = LidDrivenCavityExampleProblem<TypeTag, Dumux::NavierStokesMassProblem<TypeTag>>; };
+
+
 // [[/codeblock]]
 
 // We also set some properties related to memory management
@@ -122,8 +109,17 @@ struct EnableGridFluxVariablesCache<TypeTag, TTag::LidDrivenCavityExample> { sta
 // This enables grid-wide caching for the finite volume grid geometry
 template<class TypeTag>
 struct EnableGridVolumeVariablesCache<TypeTag, TTag::LidDrivenCavityExample> { static constexpr bool value = true; };
-} // end namespace Dumux::Properties
 // [[/codeblock]]
 // [[/details]]
+
+// Finally, we introduce the coupling manager to the properties system
+// We do this at the end so that all specialized properties are defined
+template<class TypeTag>
+struct CouplingManager<TypeTag, TTag::LidDrivenCavityExample>
+{
+    using Traits = MultiDomainTraits<TTag::LidDrivenCavityExampleMomentum, TTag::LidDrivenCavityExampleMass>;
+    using type = FreeFlowCouplingManager<Traits>;
+};
+} // end namespace Dumux::Properties
 // [[/content]]
 #endif

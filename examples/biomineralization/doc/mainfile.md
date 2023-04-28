@@ -45,11 +45,13 @@ the retrieval of input parameters specified in the input file or via the command
 #include <dumux/common/initialize.hh>
 ```
 
-The follwoing files contain the nonlinear Newtown method, the linear solver and the assembler
+The following files contain the nonlinear Newtown method, the linear solver and the assembler
 
 ```cpp
 #include <dumux/nonlinear/newtonsolver.hh>
-#include <dumux/linear/amgbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
+#include <dumux/linear/linearalgebratraits.hh>
+#include <dumux/linear/linearsolvertraits.hh>
 #include <dumux/assembly/fvassembler.hh>
 #include <dumux/assembly/diffmethod.hh>
 ```
@@ -158,7 +160,7 @@ on the basis of this solution, we initialize the grid variables
     gridVariables->init(x);
 ```
 
-We intialize the vtk output module. Each model has a predefined model specific output with relevant parameters for that model.
+We initialize the vtk output module. Each model has a predefined model specific output with relevant parameters for that model.
 
 ```cpp
     VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name());
@@ -222,7 +224,9 @@ Additionally the linear and non-linear solvers are set
     auto assembler = std::make_shared<Assembler>(problem, gridGeometry, gridVariables, timeLoop, xOld);
 
     //We set the linear solver
-    using LinearSolver = Dumux::ILU0BiCGSTABBackend;
+    using LinearSolver = ILUBiCGSTABIstlSolver<
+        LinearSolverTraits<GridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>
+    >;
     auto linearSolver = std::make_shared<LinearSolver>();
 
     //We set the non-linear solver
