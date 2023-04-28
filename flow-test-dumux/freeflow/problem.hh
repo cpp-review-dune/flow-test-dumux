@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_EXAMPLES_FREEFLOW_CHANNEL_PROBLEM_HH
 #define DUMUX_EXAMPLES_FREEFLOW_CHANNEL_PROBLEM_HH
@@ -29,23 +17,23 @@
 //
 // ### Include files
 //
-// Include the `NavierStokesProblem` class, the base
+// Include the `NavierStokesStaggeredProblem` class, the base
 // class from which we will derive.
-#include <dumux/freeflow/navierstokes/problem.hh>
+#include <dumux/freeflow/navierstokes/staggered/problem.hh>
 // Include the `NavierStokesBoundaryTypes` class which specifies the boundary types set in this problem.
 #include <dumux/freeflow/navierstokes/boundarytypes.hh>
 
 // ### The problem class
 // We enter the problem class where all necessary boundary conditions and initial conditions are set for our simulation.
-// As we are solving a problem related to free flow, we inherit from the base class `NavierStokesProblem`.
+// As we are solving a problem related to free flow, we inherit from the base class `NavierStokesStaggeredProblem`.
 // [[codeblock]]
 namespace Dumux {
 
 template <class TypeTag>
-class ChannelExampleProblem : public NavierStokesProblem<TypeTag>
+class ChannelExampleProblem : public NavierStokesStaggeredProblem<TypeTag>
 {
     // A few convenience aliases used throughout this class.
-    using ParentType = NavierStokesProblem<TypeTag>;
+    using ParentType = NavierStokesStaggeredProblem<TypeTag>;
     using GridGeometry = GetPropType<TypeTag, Properties::GridGeometry>;
     using FVElementGeometry = typename GridGeometry::LocalView;
     using SubControlVolumeFace = typename GridGeometry::SubControlVolumeFace;

@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_INCOMPRESSIBLE_ONEP_TEST_SPATIAL_PARAMS_HH
 #define DUMUX_INCOMPRESSIBLE_ONEP_TEST_SPATIAL_PARAMS_HH
@@ -80,7 +68,7 @@ public:
     // #### Generation of the random permeability field
     // We generate a random permeability field upon construction of the spatial parameters class
     // using lognormal distributions. The mean values for the permeability inside and outside of a
-    // low-permeable lens (given by the coorinates `lensLowerLeft_` and `lensUpperRight_`) are defined
+    // low-permeable lens (given by the coordinates `lensLowerLeft_` and `lensUpperRight_`) are defined
     // in the variables  `permeabilityLens_` and `permeability_`. The respective values are obtained
     // from the input file making use of the free function `getParam`. We use a standard deviarion
     // of 10% here and compute permeabily values for all elements of the computational grid.
@@ -136,7 +124,7 @@ public:
     // use the overload
     // `porosity(const Element&, const SubControlVolume&, const ElementSolution&)`
     // that is defined in the base class `FVPorousMediumFlowSpatialParamsOneP`. Per default, this
-    // fowards to the `porosityAtPos` function per default, which we overload here.
+    // forwards to the `porosityAtPos` function per default, which we overload here.
     Scalar porosityAtPos(const GlobalPosition& globalPos) const
     { return 0.2; }
 

@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 // ## The main file
 // This files contains the main program flow for the biomineralization example. Here we can see the programme sequence and how the system is solved using newton's method.
 //
@@ -39,9 +27,11 @@
 #include <dumux/common/parameters.hh>
 #include <dumux/common/initialize.hh>
 
-// The follwoing files contain the nonlinear Newtown method, the linear solver and the assembler
+// The following files contain the nonlinear Newtown method, the linear solver and the assembler
 #include <dumux/nonlinear/newtonsolver.hh>
-#include <dumux/linear/amgbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
+#include <dumux/linear/linearalgebratraits.hh>
+#include <dumux/linear/linearsolvertraits.hh>
 #include <dumux/assembly/fvassembler.hh>
 #include <dumux/assembly/diffmethod.hh>
 
@@ -120,7 +110,7 @@ int main(int argc, char** argv) try
     auto gridVariables = std::make_shared<GridVariables>(problem, gridGeometry);
     gridVariables->init(x);
 
-    // We intialize the vtk output module. Each model has a predefined model specific output with relevant parameters for that model.
+    // We initialize the vtk output module. Each model has a predefined model specific output with relevant parameters for that model.
     // [[codeblock]]
     VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name());
     using VelocityOutput = GetPropType<TypeTag, Properties::VelocityOutput>;
@@ -182,7 +172,9 @@ int main(int argc, char** argv) try
     auto assembler = std::make_shared<Assembler>(problem, gridGeometry, gridVariables, timeLoop, xOld);
 
     //We set the linear solver
-    using LinearSolver = Dumux::ILU0BiCGSTABBackend;
+    using LinearSolver = ILUBiCGSTABIstlSolver<
+        LinearSolverTraits<GridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>
+    >;
     auto linearSolver = std::make_shared<LinearSolver>();
 
     //We set the non-linear solver

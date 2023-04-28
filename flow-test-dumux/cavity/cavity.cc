@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
  // ## The main file (`main.cc`)
  // [[content]]
@@ -41,10 +29,11 @@
 
 // The following files contain the multi-domain Newton solver, the available linear solver backends and the assembler for the linear
 // systems arising from the staggered-grid discretization.
-#include <dumux/linear/seqsolverbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
+#include <dumux/linear/linearalgebratraits.hh>
+#include <dumux/linear/linearsolvertraits.hh>
 #include <dumux/multidomain/fvassembler.hh>
 #include <dumux/multidomain/traits.hh>
-#include <dumux/multidomain/staggeredfreeflow/couplingmanager.hh>
 #include <dumux/multidomain/newtonsolver.hh>
 
 // The gridmanager constructs a grid from the information in the input or grid file.
@@ -144,9 +133,9 @@ int main(int argc, char** argv)
     using MassGridGeometry = GetPropType<MassTypeTag, Properties::GridGeometry>;
     auto massGridGeometry = std::make_shared<MassGridGeometry>(leafGridView);
 
-    // We introduce the multidomain coupling manager, which will coupled the mass and the momentum problems
-    using Traits = MultiDomainTraits<MomentumTypeTag, MassTypeTag>;
-    using CouplingManager = StaggeredFreeFlowCouplingManager<Traits>;
+    // We introduce the multidomain coupling manager, which will couple the mass and the momentum problems
+    // We can obtain the type from either the `MomentumTypeTag` or the `MassTypeTag` because they are mutually coupled with the same manager
+    using CouplingManager = GetPropType<MomentumTypeTag, Properties::CouplingManager>;
     auto couplingManager = std::make_shared<CouplingManager>();
 
     // We now instantiate the problems, in which we define the boundary and initial conditions.
@@ -161,6 +150,7 @@ int main(int argc, char** argv)
     // We initialize the solution vector by what was defined as the initial solution of the the problem.
     constexpr auto momentumIdx = CouplingManager::freeFlowMomentumIndex;
     constexpr auto massIdx = CouplingManager::freeFlowMassIndex;
+    using Traits = MultiDomainTraits<MomentumTypeTag, MassTypeTag>;
     using SolutionVector = typename Traits::SolutionVector;
     SolutionVector x;
     momentumProblem->applyInitialSolution(x[momentumIdx]);
@@ -207,7 +197,7 @@ int main(int argc, char** argv)
                                                  std::make_tuple(momentumGridVariables, massGridVariables),
                                                  couplingManager, timeLoop, xOld);
     // the linear solver
-    using LinearSolver = Dumux::UMFPackBackend;
+    using LinearSolver = Dumux::UMFPackIstlSolver<SeqLinearSolverTraits, LinearAlgebraTraitsFromAssembler<Assembler>>;
     auto linearSolver = std::make_shared<LinearSolver>();
 
     // the non-linear solver

@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_EXAMPLE_SHALLOWWATER_FRICTION_PROBLEM_HH
 #define DUMUX_EXAMPLE_SHALLOWWATER_FRICTION_PROBLEM_HH
@@ -33,7 +21,7 @@
 // The first include we need here is the `ShallowWaterProblem` class, the base
 // class from which we will derive.
 #include <dumux/freeflow/shallowwater/problem.hh>
-// In addition, we need the boundaryflux header, which handels the flux over
+// In addition, we need the boundaryflux header, which handles the flux over
 // the model boundaries.
 #include <dumux/freeflow/shallowwater/boundaryfluxes.hh>
 // Include the `BoundaryTypes` class which specifies the boundary types set in this problem.
@@ -81,7 +69,7 @@ public:
         discharge_ = getParam<Scalar>("Problem.Discharge");
         // We calculate the outflow boundary condition using the Gauckler-Manning-Strickler formula.
         hBoundary_ = this->gaucklerManningStrickler(discharge_,constManningN_,bedSlope_);
-        // We initialize the analytic solution to a verctor of the appropriate size filled with zeros.
+        // We initialize the analytic solution to a vector of the appropriate size filled with zeros.
         exactWaterDepth_.resize(gridGeometry->numDofs(), 0.0);
         exactVelocityX_.resize(gridGeometry->numDofs(), 0.0);
     }
@@ -143,7 +131,7 @@ public:
 
         NumEqVector source (0.0);
 
-        // Since the bed slope source term is handels within the flux computation,
+        // Since the bed slope source term is handles within the flux computation,
         // in this model the bottom friction is the only source term.
         source += bottomFrictionSource(element, fvGeometry, elemVolVars, scv);
 
@@ -196,7 +184,7 @@ public:
     // In the following function we implement the __Neumann boundary conditions__.
     // Due to the weak imposition we calculate the flux at the boundary with a Riemann solver.
     // This needs the state of a virtual cell outside of the boundary (`boundaryStateVariables`),
-    // wich is calculated with the Riemann invariants
+    // which is calculated with the Riemann invariants
     // (see: Yoon and Kang, "Finite Volume Model for Two-Dimensional Shallow Water Flows on Unstructured Grids").
     // [[codeblock]]
     NeumannFluxes neumann(const Element& element,

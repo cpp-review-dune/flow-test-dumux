@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_MICP_COLUMN_SIMPLE_CHEM_PROPERTIES_HH
 #define DUMUX_MICP_COLUMN_SIMPLE_CHEM_PROPERTIES_HH
@@ -36,6 +24,7 @@
 // subsequently specialize those `properties` for our `TypeTag`, which we want to
 // modify or for which no meaningful default can be set.
 #include <dumux/common/properties.hh>
+#include <dumux/material/components/simpleco2.hh>
 #include <dumux/porousmediumflow/2pncmin/model.hh>
 
 // We want to use `YaspGrid`, an implementation of the dune grid interface for structured grids:
@@ -47,7 +36,6 @@
 // We include the necessary material files
 #include "material/fluidsystems/biominsimplechemistry.hh"
 #include "material/solidsystems/biominsolids.hh"
-#include "material/co2tables.hh"
 
 // We include the problem and spatial parameters headers used for this simulation.
 #include "problem.hh"
@@ -62,7 +50,7 @@
 // This way, most of the `properties` required for this simulations
 // using the box scheme are conveniently specialized for our new `TypeTag`.
 // However, some properties depend on user choices and no meaningful default value can be set.
-// Those properties will be adressed later in this file.
+// Those properties will be addressed later in this file.
 // [[codeblock]]
 namespace Dumux::Properties {
 
@@ -75,7 +63,7 @@ struct MICPColumnSimpleChemistry { using InheritsFrom = std::tuple<TwoPNCMin, Bo
 // ### Property specializations
 //
 // In the following piece of code, mandatory `properties` for which no meaningful
-// dafault can be set, are specialized for our type tag `MICPColumnSimpleChemistry`.
+// default can be set, are specialized for our type tag `MICPColumnSimpleChemistry`.
 
 // [[codeblock]]
 // We set the grid to a 1D Yasp Grid
@@ -93,9 +81,9 @@ template<class TypeTag>
 struct FluidSystem<TypeTag, TTag::MICPColumnSimpleChemistry>
 {
     using Scalar = GetPropType<TypeTag, Properties::Scalar>;
-    using CO2Tables = BiomineralizationCO2Tables::CO2Tables;
+    using CO2Impl = Components::SimpleCO2<Scalar>;
     using H2OTabulated = Components::TabulatedComponent<Components::H2O<Scalar>>;
-    using type = Dumux::FluidSystems::BioMinSimpleChemistryFluid<Scalar, CO2Tables, H2OTabulated>;
+    using type = Dumux::FluidSystems::BioMinSimpleChemistryFluid<Scalar, CO2Impl, H2OTabulated>;
 };
 
 // We set the solidSystem  used for our simulation

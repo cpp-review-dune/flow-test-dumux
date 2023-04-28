@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_BIOFLUID_SIMPLE_CHEM_SYSTEM_HH
 #define DUMUX_BIOFLUID_SIMPLE_CHEM_SYSTEM_HH
@@ -39,7 +27,7 @@
 
 // we include all necessary fluid components
 #include <dumux/material/fluidstates/adapter.hh>
-#include <dumux/material/components/co2.hh>
+#include <dumux/material/components/simpleco2.hh>
 #include <dumux/material/components/h2o.hh>
 #include <dumux/material/components/tabulatedcomponent.hh>
 #include <dumux/material/components/sodiumion.hh>
@@ -63,18 +51,18 @@
 //
 // ### The fluidsystem class
 // In the BioMinSimpleChemistryFluid fluid system, we define all functions needed to describe the fluids and their properties accounted for in our simulation.
-// The simplified biogeochemistry biomineralization fluid system requires the CO2 tables and the H2OType as template parameters.
+// The simplified biogeochemistry biomineralization fluid system requires the CO2 component and the H2OType as template parameters.
 // We enter the namespace Dumux. All Dumux functions and classes are in a namespace Dumux, to make sure they don`t clash with symbols from other libraries you may want to use in conjunction with Dumux.
 // [[codeblock]]
 namespace Dumux::FluidSystems {
 
 template <class Scalar,
-          class CO2Table,
+          class CO2Impl = Components::SimpleCO2<Scalar>,
           class H2OType = Components::TabulatedComponent<Components::H2O<Scalar>> >
 class BioMinSimpleChemistryFluid
-: public Base<Scalar, BioMinSimpleChemistryFluid<Scalar, CO2Table, H2OType> >
+: public Base<Scalar, BioMinSimpleChemistryFluid<Scalar, CO2Impl, H2OType> >
 {
-    using ThisType = BioMinSimpleChemistryFluid<Scalar, CO2Table, H2OType>;
+    using ThisType = BioMinSimpleChemistryFluid<Scalar, CO2Impl, H2OType>;
     using Base = Dumux::FluidSystems::Base<Scalar, ThisType>;
     using IdealGas = Dumux::IdealGas<Scalar>;
 // [[/codeblock]]
@@ -84,7 +72,7 @@ class BioMinSimpleChemistryFluid
 // [[codeblock]]
 public:
     // We use convenient declarations that we derive from the property system
-    typedef Components::CO2<Scalar, CO2Table> CO2;
+    using CO2 = CO2Impl;
     using H2O = H2OType;
     // export the underlying brine fluid system for the liquid phase, as brine is used as a "pseudo component"
     using Brine = Dumux::FluidSystems::ICPComplexSalinityBrine<Scalar, H2OType>;
@@ -96,8 +84,8 @@ public:
     using Glucose = Components::Glucose<Scalar>;
     using SuspendedBiomass = Components::SuspendedBiomass<Scalar>;
 
-    // We define the binary coefficents file, which accounts for the interactions of the main fluids in our setup, water/brine and CO2
-    using Brine_CO2 = BinaryCoeff::Brine_CO2<Scalar, CO2Table, true>;
+    // We define the binary coefficients file, which accounts for the interactions of the main fluids in our setup, water/brine and CO2
+    using Brine_CO2 = BinaryCoeff::Brine_CO2<Scalar, CO2Impl, true>;
 
     // the type of parameter cache objects. this fluid system does not
     // cache anything, so it uses Dumux::NullParameterCache
@@ -199,7 +187,7 @@ public:
         switch (compIdx) {
             case H2OIdx: return H2O::molarMass();
             // actually, the molar mass of brine is only needed for diffusion
-            // but since chloride and sodium are accounted for seperately
+            // but since chloride and sodium are accounted for separately
             // only the molar mass of water is returned.
             case TCIdx: return CO2::molarMass();
             case CaIdx: return Ca::molarMass();
@@ -299,7 +287,7 @@ public:
         assert(temperature > 0);
         assert(pressure > 0);
 
-        // calulate the equilibrium composition for the given
+        // calculate the equilibrium composition for the given
         // temperature and pressure.
         Scalar xgH2O, xlH2O;
         Scalar xlCO2, xgCO2;

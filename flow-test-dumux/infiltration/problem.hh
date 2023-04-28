@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_EXAMPLE_TWOP_INFILTRATION_PROBLEM_HH
 #define DUMUX_EXAMPLE_TWOP_INFILTRATION_PROBLEM_HH
@@ -66,7 +54,7 @@ class PointSourceProblem : public PorousMediumFlowProblem<TypeTag>
     // [[/details]]
     //
     // In the constructor of the class, we call the parent type's constructor
-    // and read the intial values for the primary variables from a text file.
+    // and read the initial values for the primary variables from a text file.
     // The function `readFileToContainer` is implemented in the header `dumux/io/container.hh`.
 public:
     PointSourceProblem(std::shared_ptr<const GridGeometry> gridGeometry)
@@ -166,7 +154,7 @@ public:
     // The `PointSource` constructor takes two arguments.
     // The first argument is a coordinate array containing the position in space,
     // the second argument is an array of source value for each equation (in units of $`kg/s`$).
-    // Recall that the first eqution is the water phase mass balance
+    // Recall that the first equation is the water phase mass balance
     // and the second equation is the DNAPL phase mass balance.
     void addPointSources(std::vector<PointSource>& pointSources) const
     {
