@@ -72,9 +72,10 @@ private:
     using Scalar = GetPropType<TypeTag, Properties::Scalar>;
 public:
     using type = FluidSystems::BrineCO2<Scalar,
-                           GeneratedCO2Tables::CO2Tables,
-                           Components::TabulatedComponent<Components::H2O<Scalar>>,
-                           FluidSystems::BrineCO2DefaultPolicy</*constantSalinity=*/true, /*simpleButFast=*/true>>;
+        Components::CO2<Scalar, GeneratedCO2Tables::CO2Tables>,
+        Components::TabulatedComponent<Components::H2O<Scalar>>,
+        FluidSystems::BrineCO2DefaultPolicy</*constantSalinity=*/true, /*simpleButFast=*/true>
+    >;
 };
 
 // Use Moles

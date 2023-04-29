@@ -36,8 +36,9 @@
 #include <dumux/common/dumuxmessage.hh>
 #include <dumux/common/defaultusagemessage.hh>
 
-#include <dumux/linear/amgbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
 #include <dumux/linear/linearsolvertraits.hh>
+#include <dumux/linear/linearalgebratraits.hh>
 #include <dumux/nonlinear/newtonsolver.hh>
 
 #include <dumux/assembly/fvassembler.hh>
@@ -46,7 +47,7 @@
 #include <dumux/discretization/method.hh>
 
 #include <dumux/io/vtkoutputmodule.hh>
-#include <dumux/io/grid/gridmanager.hh>
+#include <dumux/io/grid/gridmanager_yasp.hh>
 
 
 
@@ -157,7 +158,7 @@ int main(int argc, char** argv) try
     auto assembler = std::make_shared<Assembler>(problem, fvGridGeometry, gridVariables, timeLoop, xOld);
 
     // the linear solver
-    using LinearSolver = ILU0BiCGSTABBackend;
+    using LinearSolver = ILUBiCGSTABIstlSolver<LinearSolverTraits<FVGridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>>;
     auto linearSolver = std::make_shared<LinearSolver>();
 
     // the non-linear solver

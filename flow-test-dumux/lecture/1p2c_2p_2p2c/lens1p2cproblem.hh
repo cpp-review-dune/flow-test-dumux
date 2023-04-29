@@ -89,6 +89,14 @@ public:
         // the boundary condition data
         lowerPressure_ = getParam<Scalar>("Boundary.LowerPressure");
         upperPressure_ = getParam<Scalar>("Boundary.UpperPressure");
+
+        // initialize the tables of the fluid system
+        FluidSystem::init(/*Tmin=*/ 273.15 + getParam<Scalar>("SpatialParams.Temperature") - 1.0,
+        /*Tmax=*/ 273.15 + getParam<Scalar>("SpatialParams.Temperature") + 1.0,
+        /*nT=*/3,
+        /*pmin=*/1e5,
+        /*pmax=*/3e7,
+        /*np=*/200);
     }
 
 
