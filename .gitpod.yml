@@ -1,4 +1,4 @@
-image: ghcr.io/cpp-review-dune/introductory-review/dumux
+image: ghcr.io/cpp-review-dune/introductory-review/dumux:3.5.0
 
 github:
   prebuilds:
