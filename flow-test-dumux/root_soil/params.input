@@ -7,8 +7,7 @@ TEnd = 86400 # [s]
 EpisodeLength = 21700 # [s]
 
 [Root.Grid]
-File = tinyroot.dgf
-#File = ../grids/lupine.dgf
+File = ../grids/lupine.dgf
 Refinement = 0
 
 [Soil.Grid]
