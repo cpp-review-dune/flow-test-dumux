@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -38,8 +38,8 @@
 
 #include <dumux/porousmediumflow/1p/model.hh>
 // TODO: dumux-course-task 3
-// uncomment the incompressiblelocalresidual which is a specialization of the standard immisible localresidual for one phase incompressible cases and provides an analytic jacobian.
-#include <dumux/porousmediumflow/1p/incompressiblelocalresidual.hh>
+// uncomment the incompressiblelocalresidual which is a specialization of the standard immiscible localresidual for one phase incompressible cases and provides an analytic jacobian.
+// #include <dumux/porousmediumflow/1p/incompressiblelocalresidual.hh>
 
 #include "1pspatialparams.hh"
 #include "1pproblem.hh"
@@ -81,8 +81,8 @@ public:
 
 // TODO: dumux-course-task 3
 // set the OneP Incompressible local residual for the OnePIncompressible type tag. This provides an analytic jacobian to be used for the analytic solution. Change that by setting:
-template<class TypeTag>
-struct LocalResidual<TypeTag, TTag::OnePIncompressible> { using type = OnePIncompressibleLocalResidual<TypeTag>; };
+// template<class TypeTag>
+// struct LocalResidual<TypeTag, TTag::OnePIncompressible> { using type = OnePIncompressibleLocalResidual<TypeTag>; };
 
 
 // the fluid system for compressible tests

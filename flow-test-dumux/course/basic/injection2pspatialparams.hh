@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -128,6 +128,15 @@ public:
     int wettingPhaseAtPos(const GlobalPosition& globalPos) const
     { return FluidSystem::H2OIdx; }
 
+    /*!
+     * \brief Returns the temperature at the domain at the given position
+     * \param globalPos The position in global coordinates where the temperature should be specified
+     */
+    Scalar temperatureAtPos(const GlobalPosition& globalPos) const
+    {
+        return 273.15 + 30; // [K]
+    }
+
 private:
 
     static constexpr Scalar eps_ = 1e-6;
@@ -142,7 +151,6 @@ private:
     Scalar aquitardK_;
     Scalar aquiferK_;
     Scalar aquiferHeightFromBottom_;
-
 
     Scalar aquitardPorosity_;
     Scalar aquiferPorosity_;

@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -23,29 +23,24 @@
  */
 #include <config.h>
 
-#include "1pproblem.hh"
 #include "properties.hh"
 
-#include <ctime>
 #include <iostream>
 
-#include <dune/common/parallel/mpihelper.hh>
 #include <dune/common/timer.hh>
-#include <dune/grid/io/file/dgfparser/dgfexception.hh>
-#include <dune/grid/io/file/vtk.hh>
-#include <dune/istl/io.hh>
 
+#include <dumux/common/initialize.hh>
 #include <dumux/common/properties.hh>
 #include <dumux/common/parameters.hh>
-#include <dumux/common/dumuxmessage.hh>
-#include <dumux/common/defaultusagemessage.hh>
 
-#include <dumux/linear/seqsolverbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
+#include <dumux/linear/linearalgebratraits.hh>
+#include <dumux/linear/linearsolvertraits.hh>
 
 #include <dumux/assembly/fvassembler.hh>
 
 #include <dumux/io/vtkoutputmodule.hh>
-#include <dumux/io/grid/gridmanager.hh>
+#include <dumux/io/grid/gridmanager_yasp.hh>
 
 int main(int argc, char** argv)
 {
@@ -57,12 +52,8 @@ int main(int argc, char** argv)
     ////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////
 
-    // initialize MPI, finalize is done automatically on exit
-    const auto& mpiHelper = Dune::MPIHelper::instance(argc, argv);
-
-    // print dumux start message
-    if (mpiHelper.rank() == 0)
-        DumuxMessage::print(/*firstCall=*/true);
+    // initialize MPI+x, finalize is done automatically on exit
+    Dumux::initialize(argc, argv);
 
     // initialize parameter tree
     Parameters::init(argc, argv);
@@ -98,7 +89,7 @@ int main(int argc, char** argv)
     auto gridVariables = std::make_shared<GridVariables>(problem, gridGeometry);
     gridVariables->init(x);
 
-    // intialize the vtk output module
+    // initialize the vtk output module
     VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name());
     using VelocityOutput = GetPropType<TypeTag, Properties::VelocityOutput>;
     vtkWriter.addVelocityOutput(std::make_shared<VelocityOutput>(*gridVariables));
@@ -112,12 +103,12 @@ int main(int argc, char** argv)
     // Change the differentiation method to analytic by changing from DiffMethod::numeric to DiffMethod::analytic
 
     // the assembler for stationary problems
-    using Assembler = FVAssembler<TypeTag, DiffMethod::analytic>;
+    using Assembler = FVAssembler<TypeTag, DiffMethod::numeric>;
     auto assembler = std::make_shared<Assembler>(problem, gridGeometry, gridVariables);
 
     // the linear solver
-    using LinearSolver = ILU0BiCGSTABBackend;
-    auto linearSolver = std::make_shared<LinearSolver>();
+    using LinearSolver = ILUBiCGSTABIstlSolver<LinearSolverTraits<GridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>>;
+    auto linearSolver = std::make_shared<LinearSolver>(gridGeometry->gridView(), gridGeometry->dofMapper());
 
     // the discretization matrices for stationary linear problems
     using JacobianMatrix = GetPropType<TypeTag, Properties::JacobianMatrix>;
@@ -138,18 +129,13 @@ int main(int argc, char** argv)
 
     timer.stop();
 
-    const auto& comm = Dune::MPIHelper::getCollectiveCommunication();
+    const auto& comm = leafGridView.comm();
     std::cout << "Simulation took " << timer.elapsed() << " seconds on "
               << comm.size() << " processes.\n"
               << "The cumulative CPU time was " << timer.elapsed()*comm.size() << " seconds.\n";
 
-    ////////////////////////////////////////////////////////////
-    // print dumux message to say goodbye
-    ////////////////////////////////////////////////////////////
-
-    // print dumux end message
-    if (mpiHelper.rank() == 0)
-        DumuxMessage::print(/*firstCall=*/false);
+    if (leafGridView.comm().rank() == 0)
+        Parameters::print();
 
     return 0;
 

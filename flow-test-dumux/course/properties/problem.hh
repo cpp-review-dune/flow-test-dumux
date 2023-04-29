@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -48,13 +48,11 @@ class TwoPTestProblem : public PorousMediumFlowProblem<TypeTag>
     using GlobalPosition = typename Element::Geometry::GlobalCoordinate;
     using NumEqVector = Dumux::NumEqVector<PrimaryVariables>;
     using Indices = typename GetPropType<TypeTag, Properties::ModelTraits>::Indices;
-    enum {
-        pressureH2OIdx = Indices::pressureIdx,
-        saturationDNAPLIdx = Indices::saturationIdx,
-        contiDNAPLEqIdx = Indices::conti0EqIdx + FluidSystem::comp1Idx,
-        waterPhaseIdx = FluidSystem::phase0Idx,
-        dnaplPhaseIdx = FluidSystem::phase1Idx
-    };
+    static constexpr int pressureH2OIdx = Indices::pressureIdx;
+    static constexpr int saturationDNAPLIdx = Indices::saturationIdx;
+    static constexpr int contiDNAPLEqIdx = Indices::conti0EqIdx + FluidSystem::comp1Idx;
+    static constexpr int waterPhaseIdx = FluidSystem::phase0Idx;
+    static constexpr int dnaplPhaseIdx = FluidSystem::phase1Idx;
 
 public:
     TwoPTestProblem(std::shared_ptr<const GridGeometry> gridGeometry)

@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -41,7 +41,7 @@ namespace Dumux {
  *
  * The domain is sized 60 m times 40 m.
  *
- * For the mass conservation equation neumann boundary conditions are used on
+ * For the mass conservation equation Neumann boundary conditions are used on
  * the top, on the bottom and on the right of the domain, while Dirichlet conditions
  * apply on the left boundary.
  *
@@ -67,7 +67,7 @@ class InjectionProblem2P : public PorousMediumFlowProblem<TypeTag>
     using FluidSystem = GetPropType<TypeTag, Properties::FluidSystem>;
     using NumEqVector = Dumux::NumEqVector<PrimaryVariables>;
 
-    enum { dimWorld = GridView::dimensionworld };
+    static constexpr int dimWorld = GridView::dimensionworld;
     using Element = typename GridView::template Codim<0>::Entity;
     using GlobalPosition = typename Element::Geometry::GlobalCoordinate;
 
@@ -93,28 +93,14 @@ public:
         injectionDuration_ = getParamFromGroup<Scalar>("Problem","InjectionDuration");
         // TODO: dumux-course-task 2
         // Set a variable "TotalAreaSpecificInflow" to read in a value from the parameter tree via the input file
-        totalAreaSpecificInflow_ = getParam<Scalar>("Problem.TotalAreaSpecificInflow");
 
         // TODO: dumux-course-task 3
         // Set a default value for the above parameter.
-        totalAreaSpecificInflow_ = getParam<Scalar>("Problem.TotalAreaSpecificInflow", -1e-4);
 
         // TODO: dumux-course-task 4
         // Provide output describing where the parameter value comes from using parameter bool functions.
-        if (hasParamInGroup("Problem","TotalAreaSpecificInflow"))
-        {
-            std::cout << "Parameter value is read from file." << std::endl;
-        }
-        else
-        {
-            std::cout << "Using the default parameter value." << std::endl;
-        }
     }
 
-    /*!
-     * \name Problem parameters
-     */
-    // \{
 
     /*!
      * \brief Returns the problem name
@@ -124,12 +110,6 @@ public:
     std::string name() const
     { return name_+"-2p"; }
 
-    // \}
-
-    /*!
-     * \name Boundary conditions
-     */
-    // \{
 
     /*!
      * \brief Specifies which kind of boundary condition should be
@@ -182,19 +162,13 @@ public:
             // units kg/(s*m^2)
             // TODO: dumux-course-task 2
             // Incorporate "totalAreaSpecificInflow_"  into the injection boundary condition
-            values[Indices::conti0EqIdx + FluidSystem::N2Idx] = totalAreaSpecificInflow_/FluidSystem::molarMass(FluidSystem::N2Idx);
+            values[Indices::conti0EqIdx + FluidSystem::N2Idx]= -1e-4/FluidSystem::molarMass(FluidSystem::N2Idx);
             values[Indices::conti0EqIdx + FluidSystem::H2OIdx] = 0.0;
         }
 
         return values;
     }
 
-    // \}
-
-    /*!
-     * \name Volume terms
-     */
-    // \{
 
     /*!
      * \brief Evaluate the initial value for a control volume.
@@ -208,7 +182,7 @@ public:
         // get the water density at atmospheric conditions
         const Scalar densityW = FluidSystem::H2O::liquidDensity(this->spatialParams().temperatureAtPos(globalPos), 1.0e5);
 
-        // assume an intially hydrostatic liquid pressure profile
+        // assume an initially hydrostatic liquid pressure profile
         // note: we subtract rho_w*g*h because g is defined negative
         const Scalar pw = 1.0e5 - densityW*this->spatialParams().gravity(globalPos)[dimWorld-1]*(aquiferDepth_ - globalPos[dimWorld-1]);
 
@@ -231,7 +205,6 @@ private:
     Scalar injectionDuration_; //! Duration of the injection in seconds
     // TODO: dumux-course-task 2
     // Set a variable "totalAreaSpecificInflow_" to read in a value from the parameter tree via the input file
-    Scalar totalAreaSpecificInflow_; //! Rate of the Injection in kg/(m s^2)
     Scalar time_;
 };
 

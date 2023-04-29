@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -22,30 +22,22 @@
  */
 #include <config.h>
 
-#include <ctime>
 #include <iostream>
 
-#include <dune/common/parallel/mpihelper.hh>
-#include <dune/common/timer.hh>
-#include <dune/grid/io/file/dgfparser/dgfexception.hh>
-#include <dune/grid/io/file/vtk.hh>
-
+#include <dumux/common/initialize.hh>
 #include <dumux/common/properties.hh>
 #include <dumux/common/parameters.hh>
-#include <dumux/common/dumuxmessage.hh>
-#include <dumux/common/defaultusagemessage.hh>
 
-#include <dumux/linear/amgbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
 #include <dumux/linear/linearsolvertraits.hh>
+#include <dumux/linear/linearalgebratraits.hh>
 #include <dumux/nonlinear/newtonsolver.hh>
 
 #include <dumux/assembly/fvassembler.hh>
 #include <dumux/assembly/diffmethod.hh>
 
-#include <dumux/discretization/method.hh>
-
 #include <dumux/io/vtkoutputmodule.hh>
-#include <dumux/io/grid/gridmanager.hh>
+#include <dumux/io/grid/gridmanager_yasp.hh>
 
 // The properties file, where the compile time options are defined
 #include "properties2pni.hh"
@@ -60,12 +52,8 @@ int main(int argc, char** argv)
     // define the type tag for this problem
     using TypeTag = Properties::TTag::Injection2pNICC;
 
-    // initialize MPI, finalize is done automatically on exit
-    const auto& mpiHelper = Dune::MPIHelper::instance(argc, argv);
-
-    // print dumux start message
-    if (mpiHelper.rank() == 0)
-        DumuxMessage::print(/*firstCall=*/true);
+    /// initialize MPI+X, finalize is done automatically on exit
+    Dumux::initialize(argc, argv);
 
     // parse command line arguments and input file
     Parameters::init(argc, argv);
@@ -100,22 +88,23 @@ int main(int argc, char** argv)
     auto gridVariables = std::make_shared<GridVariables>(problem, gridGeometry);
     gridVariables->init(x);
 
-    // get some time loop parameters
-    using Scalar = GetPropType<TypeTag, Properties::Scalar>;
-    const auto tEnd = getParam<Scalar>("TimeLoop.TEnd");
-    const auto maxDt = getParam<Scalar>("TimeLoop.MaxTimeStepSize");
-    auto dt = getParam<Scalar>("TimeLoop.DtInitial");
-
-    // intialize the vtk output module
+    // initialize the vtk output module
     using IOFields = GetPropType<TypeTag, Properties::IOFields>;
 
-    VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name());
+    // use non-conforming output for the test with interface solver
+    const auto ncOutput = getParam<bool>("Problem.UseNonConformingOutput", false);
+    VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name(), "",
+                                                             ncOutput ? Dune::VTK::nonconforming : Dune::VTK::conforming);
     using VelocityOutput = GetPropType<TypeTag, Properties::VelocityOutput>;
     vtkWriter.addVelocityOutput(std::make_shared<VelocityOutput>(*gridVariables));
     IOFields::initOutputModule(vtkWriter); //!< Add model specific output fields
     vtkWriter.write(0.0);
 
     // instantiate time loop
+    using Scalar = GetPropType<TypeTag, Properties::Scalar>;
+    const auto tEnd = getParam<Scalar>("TimeLoop.TEnd");
+    const auto maxDt = getParam<Scalar>("TimeLoop.MaxTimeStepSize");
+    const auto dt = getParam<Scalar>("TimeLoop.DtInitial");
     auto timeLoop = std::make_shared<TimeLoop<Scalar>>(0.0, dt, tEnd);
     timeLoop->setMaxTimeStepSize(maxDt);
 
@@ -124,8 +113,8 @@ int main(int argc, char** argv)
     auto assembler = std::make_shared<Assembler>(problem, gridGeometry, gridVariables, timeLoop, xOld);
 
     // the linear solver
-    using LinearSolver = AMGBiCGSTABBackend<LinearSolverTraits<GridGeometry>>;
-    auto linearSolver = std::make_shared<LinearSolver>(leafGridView, gridGeometry->dofMapper());
+    using LinearSolver = AMGBiCGSTABIstlSolver<LinearSolverTraits<GridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>>;
+    auto linearSolver = std::make_shared<LinearSolver>(gridGeometry->gridView(), gridGeometry->dofMapper());
 
     // the non-linear solver
     using NewtonSolver = Dumux::NewtonSolver<Assembler, LinearSolver>;
@@ -135,9 +124,6 @@ int main(int argc, char** argv)
     timeLoop->start();
     while (!timeLoop->finished())
     {
-        // set previous solution for storage evaluations
-        assembler->setPreviousSolution(xOld);
-
         //set time in problem (is used in time-dependent Neumann boundary condition)
         problem->setTime(timeLoop->time()+timeLoop->timeStepSize());
 
@@ -163,16 +149,9 @@ int main(int argc, char** argv)
 
     timeLoop->finalize(leafGridView.comm());
 
-    ////////////////////////////////////////////////////////////
-    // finalize, print dumux message to say goodbye
-    ////////////////////////////////////////////////////////////
-
-    // print dumux end message
-    if (mpiHelper.rank() == 0)
-    {
+    // print parameter report
+    if (leafGridView.comm().rank() == 0)
         Parameters::print();
-        DumuxMessage::print(/*firstCall=*/false);
-    }
 
     return 0;
 } // end main

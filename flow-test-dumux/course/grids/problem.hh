@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -67,7 +67,7 @@ class InjectionProblem2P : public PorousMediumFlowProblem<TypeTag>
     using FluidSystem = GetPropType<TypeTag, Properties::FluidSystem>;
     using NumEqVector = Dumux::NumEqVector<PrimaryVariables>;
 
-    enum { dimWorld = GridView::dimensionworld };
+    static constexpr int dimWorld = GridView::dimensionworld;
     using Element = typename GridView::template Codim<0>::Entity;
     using GlobalPosition = typename Element::Geometry::GlobalCoordinate;
 
@@ -93,10 +93,6 @@ public:
         injectionDuration_ = getParam<Scalar>("Problem.InjectionDuration");
     }
 
-    /*!
-     * \name Problem parameters
-     */
-    // \{
 
     /*!
      * \brief Returns the problem name
@@ -106,12 +102,6 @@ public:
     std::string name() const
     { return name_+"-2p"; }
 
-    // \}
-
-    /*!
-     * \name Boundary conditions
-     */
-    // \{
 
     /*!
      * \brief Specifies which kind of boundary condition should be
@@ -169,13 +159,6 @@ public:
         return values;
     }
 
-    // \}
-
-
-    /*!
-     * \name Volume terms
-     */
-    // \{
 
     /*!
      * \brief Evaluate the initial value for a control volume.
@@ -189,7 +172,7 @@ public:
         // get the water density at atmospheric conditions
         const Scalar densityW = FluidSystem::H2O::liquidDensity(this->spatialParams().temperatureAtPos(globalPos), 1.0e5);
 
-        // assume an intially hydrostatic liquid pressure profile
+        // assume an initially hydrostatic liquid pressure profile
         // note: we subtract rho_w*g*h because g is defined negative
         const Scalar pw = 1.0e5 - densityW*this->spatialParams().gravity(globalPos)[dimWorld-1]*(aquiferDepth_ - globalPos[dimWorld-1]);
 

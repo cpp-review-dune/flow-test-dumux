@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -23,65 +23,23 @@
  */
 #include <config.h>
 
-#include <ctime>
 #include <iostream>
 
-#include <dune/common/parallel/mpihelper.hh>
-#include <dune/common/timer.hh>
-#include <dune/grid/io/file/dgfparser/dgfexception.hh>
-#include <dune/grid/io/file/vtk.hh>
-#include <dune/istl/io.hh>
-
+#include <dumux/common/initialize.hh>
 #include <dumux/common/properties.hh>
 #include <dumux/common/parameters.hh>
-#include <dumux/common/dumuxmessage.hh>
-#include <dumux/common/defaultusagemessage.hh>
 
-#include <dumux/linear/amgbackend.hh>
+#include <dumux/linear/istlsolvers.hh>
+#include <dumux/linear/linearalgebratraits.hh>
 #include <dumux/linear/linearsolvertraits.hh>
 #include <dumux/nonlinear/newtonsolver.hh>
 
 #include <dumux/assembly/fvassembler.hh>
-#include <dumux/assembly/diffmethod.hh>
-
-#include <dumux/discretization/method.hh>
 
 #include <dumux/io/vtkoutputmodule.hh>
-#include <dumux/io/grid/gridmanager.hh>
+#include <dumux/io/grid/gridmanager_yasp.hh>
 
 #include "properties.hh"
-
-/*!
- * \brief Provides an interface for customizing error messages associated with
- *        reading in parameters.
- *
- * \param progName  The name of the program, that was tried to be started.
- * \param errorMsg  The error message that was issued by the start function.
- *                  Comprises the thing that went wrong and a general help message.
- */
-void usage(const char *progName, const std::string &errorMsg)
-{
-    if (errorMsg.size() > 0) {
-        std::string errorMessageOut = "\nUsage: ";
-                    errorMessageOut += progName;
-                    errorMessageOut += " [options]\n";
-                    errorMessageOut += errorMsg;
-                    errorMessageOut += "\n\nThe list of mandatory arguments for this program is:\n"
-                                        "\t-TimeManager.TEnd               End of the simulation [s] \n"
-                                        "\t-TimeManager.DtInitial          Initial timestep size [s] \n"
-                                        "\t-Grid.LowerLeft                 Lower left corner coordinates\n"
-                                        "\t-Grid.UpperRight                Upper right corner coordinates\n"
-                                        "\t-Grid.Cells                     Number of cells in respective coordinate directions\n"
-                                        "\t                                definition in DGF format\n"
-                                        "\t-SpatialParams.LensLowerLeft   coordinates of the lower left corner of the lens [m] \n"
-                                        "\t-SpatialParams.LensUpperRight  coordinates of the upper right corner of the lens [m] \n"
-                                        "\t-SpatialParams.Permeability     Permeability of the domain [m^2] \n"
-                                        "\t-SpatialParams.PermeabilityLens Permeability of the lens [m^2] \n";
-
-        std::cout << errorMessageOut
-                  << "\n";
-    }
-}
 
 int main(int argc, char** argv)
 {
@@ -90,15 +48,11 @@ int main(int argc, char** argv)
     // define the type tag for this problem
     using TypeTag = Properties::TTag::TwoPIncompressibleTpfa;
 
-    // initialize MPI, finalize is done automatically on exit
-    const auto& mpiHelper = Dune::MPIHelper::instance(argc, argv);
-
-    // print dumux start message
-    if (mpiHelper.rank() == 0)
-        DumuxMessage::print(/*firstCall=*/true);
+    // initialize MPI+x, finalize is done automatically on exit
+    Dumux::initialize(argc, argv);
 
     // parse command line arguments and input file
-    Parameters::init(argc, argv, usage);
+    Parameters::init(argc, argv);
 
     // try to create a grid (from the given grid file or the input file)
     GridManager<GetPropType<TypeTag, Properties::Grid>> gridManager;
@@ -136,7 +90,7 @@ int main(int argc, char** argv)
     const auto maxDt = getParam<Scalar>("TimeLoop.MaxTimeStepSize");
     auto dt = getParam<Scalar>("TimeLoop.DtInitial");
 
-    // intialize the vtk output module
+    // initialize the vtk output module
     using IOFields = GetPropType<TypeTag, Properties::IOFields>;
     VtkOutputModule<GridVariables, SolutionVector> vtkWriter(*gridVariables, x, problem->name());
     using VelocityOutput = GetPropType<TypeTag, Properties::VelocityOutput>;
@@ -153,8 +107,8 @@ int main(int argc, char** argv)
     auto assembler = std::make_shared<Assembler>(problem, gridGeometry, gridVariables, timeLoop, xOld);
 
     // the linear solver
-    using LinearSolver = AMGBiCGSTABBackend<LinearSolverTraits<GridGeometry>>;
-    auto linearSolver = std::make_shared<LinearSolver>(leafGridView, gridGeometry->dofMapper());
+    using LinearSolver = AMGBiCGSTABIstlSolver<LinearSolverTraits<GridGeometry>, LinearAlgebraTraitsFromAssembler<Assembler>>;
+    auto linearSolver = std::make_shared<LinearSolver>(gridGeometry->gridView(), gridGeometry->dofMapper());
 
     // the non-linear solver
     using NewtonSolver = Dumux::NewtonSolver<Assembler, LinearSolver>;
@@ -163,9 +117,6 @@ int main(int argc, char** argv)
     // time loop
     timeLoop->start(); do
     {
-        // set previous solution for storage evaluations
-        assembler->setPreviousSolution(xOld);
-
         // solve the non-linear system with time step control
         nonLinearSolver.solve(x, *timeLoop);
 
@@ -192,16 +143,8 @@ int main(int argc, char** argv)
 
     timeLoop->finalize(leafGridView.comm());
 
-    ////////////////////////////////////////////////////////////
-    // finalize, print dumux message to say goodbye
-    ////////////////////////////////////////////////////////////
-
-    // print dumux end message
-    if (mpiHelper.rank() == 0)
-    {
+    if (leafGridView.comm().rank() == 0)
         Parameters::print();
-        DumuxMessage::print(/*firstCall=*/false);
-    }
 
     return 0;
 } // end main

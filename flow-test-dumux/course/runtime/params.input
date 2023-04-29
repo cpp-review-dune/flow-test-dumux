@@ -12,13 +12,11 @@ OnlyPlotMaterialLaws = true
 AquiferDepth = 2700.0 # m
 InjectionDuration = 2.628e6 # in seconds, i.e. one month
 # TODO: Task 2: Create a parameter called "TotalAreaSpecificInflow"
-TotalAreaSpecificInflow = -1e-4 # kg/(s m^2)
 
 [SpatialParams]
 PermeabilityAquitard = 1e-15 # m^2
 # TODO: Task 1: Change the Aquitard's Entry Pressure
-EntryPressureAquitard = 4.5e3 # Pa
-Aquitard.BrooksCoreyPcEntry = 4.5e3 # Pa
+Aquitard.BrooksCoreyPcEntry = 4.5e4 # Pa
 Aquitard.BrooksCoreyLambda = 2.0
 Aquitard.Swr = 0.2
 Aquitard.Snr = 0.0

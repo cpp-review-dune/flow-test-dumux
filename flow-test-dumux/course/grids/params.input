@@ -3,30 +3,13 @@ DtInitial = 3600 # in seconds
 TEnd = 3.154e9 # in seconds, i.e ten years
 
 [Grid]
-# UpperRight = 60 40
-# Cells = 24 16
-
+UpperRight = 60 40
+Cells = 24 16
 # TODO: Task 1: Globally refine your grid
-# Refinement = 2
 # TODO: Task 2: Develop even grid input parameters that can be split into zones
-# Positions0 = 0 60
-# Positions1 = 0 40
-# Cells0 = 24
-# Cells1 = 16
-# Grading0 = 1.0
-# Grading1 = 1.0
 # TODO: Task 3: Using the zoning and grading parameters, redevelop your grid to optimize your refinement in the areas that matter.
-Positions0 = 0 40 60
-Positions1 = 0 25 30 35 40
-Cells0 = 10 14
-Cells1 = 10 6 6 1
-Grading0 = 1.0 -1.25
-Grading1 = 1.0 -1.2 1.2 1.0
 # TODO: Task 4: Run your simulation the provided structured grid file ./grids/grid_structured.msh
-# File = ./grids/grid_structured.msh
-# File = ./grids/grid_structured.dgf
 # TODO: Task 5: Run your simulation the provided structured grid file ./grids/grid_unstructured.msh
-#File = ./grids/grid_unstructured.msh
 
 [Problem]
 Name = grid_exercise

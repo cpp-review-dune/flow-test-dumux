@@ -15,3 +15,4 @@ PermeabilityLens = 1e-12 # [m^2]
 
 [Assembly.NumericDifference]
 PriVarMagnitude = 1e5
+BaseEpsilon = 1e-10

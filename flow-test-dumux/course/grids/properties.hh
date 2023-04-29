@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -46,16 +46,15 @@ struct Injection2pCC { using InheritsFrom = std::tuple<Injection2p, CCTpfaModel>
 
 // Set the grid type
 template<class TypeTag>
-struct Grid<TypeTag, TTag::Injection2p> { using type = Dune::YaspGrid<2, Dune::TensorProductCoordinates<double, 2> >; };
+struct Grid<TypeTag, TTag::Injection2p> { using type = Dune::YaspGrid<2>; };
 // TODO: dumux-course-task 2
 //Replace the above Grid Property definition with a more flexible grid (Use Dune::TensorProductCoordinates)
 
 // TODO: dumux-course-task 4
 // Replace the above Grid Property definition to read in a external structured grid via a .msh file (Use Dune::ALUGrid and Dune:cube)
-// struct Grid<TypeTag, TTag::Injection2p> { using type = Dune::ALUGrid<2, 2, Dune::cube, Dune::nonconforming>; };
+
 // TODO: dumux-course-task 5
 // Replace the above Grid Property definition to read in a external unstructured grid via a .msh file (Use Dune::ALUGrid and Dune::simplex)
-// struct Grid<TypeTag, TTag::Injection2p> { using type = Dune::ALUGrid<2, 2, Dune::simplex, Dune::nonconforming>; };
 
 // Set the problem property
 template<class TypeTag>

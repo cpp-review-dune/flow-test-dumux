@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -67,7 +67,7 @@ class Injection2PProblem : public PorousMediumFlowProblem<TypeTag>
     using FluidSystem = GetPropType<TypeTag, Properties::FluidSystem>;
     using NumEqVector = Dumux::NumEqVector<PrimaryVariables>;
 
-    enum { dimWorld = GridView::dimensionworld };
+    static constexpr int dimWorld = GridView::dimensionworld;
     using Element = typename GridView::template Codim<0>::Entity;
     using GlobalPosition = typename Element::Geometry::GlobalCoordinate;
 
@@ -93,10 +93,6 @@ public:
         injectionDuration_ = getParam<Scalar>("Problem.InjectionDuration");
     }
 
-    /*!
-     * \name Problem parameters
-     */
-    // \{
 
     /*!
      * \brief Returns the problem name
@@ -106,12 +102,6 @@ public:
     std::string name() const
     { return name_+"-2p"; }
 
-    // \}
-
-    /*!
-     * \name Boundary conditions
-     */
-    // \{
 
     /*!
      * \brief Specifies which kind of boundary condition should be
@@ -157,8 +147,7 @@ public:
         // if we are inside the injection zone set inflow Neumann boundary conditions
         // using < boundary + eps_ or > boundary - eps_ is safer for floating point comparisons
         // than using <= or >= as it is robust with regard to imprecision introduced by rounding errors.
-        if (time_ < injectionDuration_
-            && globalPos[1] < 15 + eps_ && globalPos[1] > 7 - eps_ && globalPos[0] > 0.9*this->gridGeometry().bBoxMax()[0])
+        if (injectionActive() && onInjectionBoundary(globalPos))
         {
             // inject nitrogen. negative values mean injection
             // units kg/(s*m^2)
@@ -169,13 +158,6 @@ public:
         return values;
     }
 
-    // \}
-
-
-    /*!
-     * \name Volume terms
-     */
-    // \{
 
     /*!
      * \brief Evaluate the source term for all phases within a given
@@ -200,7 +182,7 @@ public:
         // get the water density at atmospheric conditions
         const Scalar densityW = FluidSystem::H2O::liquidDensity(this->spatialParams().temperatureAtPos(globalPos), 1.0e5);
 
-        // assume an intially hydrostatic liquid pressure profile
+        // assume an initially hydrostatic liquid pressure profile
         // note: we subtract rho_w*g*h because g is defined negative
         const Scalar pw = 1.0e5 - densityW*this->spatialParams().gravity(globalPos)[dimWorld-1]*(aquiferDepth_ - globalPos[dimWorld-1]);
 
@@ -215,6 +197,18 @@ public:
     //! set the time for the time dependent boundary conditions (called from main)
     void setTime(Scalar time)
     { time_ = time; }
+
+    //! Return true if the injection is currently active
+    bool injectionActive() const
+    { return time_ < injectionDuration_; }
+
+    //! Return true if the given position is in the injection boundary region
+    bool onInjectionBoundary(const GlobalPosition& globalPos) const
+    {
+        return globalPos[1] < 15. + eps_
+            && globalPos[1] > 7. - eps_
+            && globalPos[0] > this->gridGeometry().bBoxMax()[0] - eps_;
+    }
 
 private:
     static constexpr Scalar eps_ = 1e-6;

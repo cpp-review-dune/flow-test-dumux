@@ -5,7 +5,7 @@
  *                                                                           *
  *   This program is free software: you can redistribute it and/or modify    *
  *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 2 of the License, or       *
+ *   the Free Software Foundation, either version 3 of the License, or       *
  *   (at your option) any later version.                                     *
  *                                                                           *
  *   This program is distributed in the hope that it will be useful,         *
@@ -31,8 +31,8 @@
 #include <dumux/porousmediumflow/2p/model.hh>
 #include <dumux/material/fluidsystems/h2on2.hh>
 
-#include "spatialparams2pni.hh"
 #include "injection2pniproblem.hh"
+#include "injection2pspatialparams.hh"
 
 namespace Dumux::Properties {
 
@@ -42,7 +42,7 @@ namespace Dumux::Properties {
 */
 // Create new type tags
 namespace TTag {
-struct Injection2pNITypeTag { using InheritsFrom = std::tuple<TwoPNI>; };
+struct Injection2pNITypeTag { using InheritsFrom = std::tuple<TwoP>; };
 struct Injection2pNICC { using InheritsFrom = std::tuple<Injection2pNITypeTag, CCTpfaModel>; };
 } // end namespace TTag
 
