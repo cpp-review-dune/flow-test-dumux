@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program. If not, see <http://www.gnu.org/licenses/>.    *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 /*!
  * \file
  * \ingroup RichardsTests
@@ -68,11 +56,8 @@ class RichardsAnalyticalProblem :  public PorousMediumFlowProblem<TypeTag>
     using Indices = typename GetPropType<TypeTag, Properties::ModelTraits>::Indices;
     using GridGeometry = GetPropType<TypeTag, Properties::GridGeometry>;
     using SolutionVector = GetPropType<TypeTag, Properties::SolutionVector>;
-    enum {
-        // copy some indices for convenience
-        pwIdx = Indices::pressureIdx,
-        bothPhases = Indices::bothPhases,
-    };
+    // copy pressure index for convenience
+    enum { pwIdx = Indices::pressureIdx };
     // Grid and world dimension
     static const int dimWorld = GridView::dimensionworld;
     static const int dim = GridView::dimension;
@@ -184,7 +169,6 @@ public:
     PrimaryVariables dirichletAtPos(const GlobalPosition &globalPos) const
     {
         PrimaryVariables values(0.0);
-        values.setState(bothPhases);
         const Scalar time = time_;
         const Scalar pwTop = 98942.8;
         const Scalar pwBottom = 95641.1;
@@ -226,7 +210,6 @@ public:
     PrimaryVariables initialAtPos(const GlobalPosition &globalPos) const
     {
         PrimaryVariables values(0.0);
-        values.setState(bothPhases);
         analyticalSolution(values, time_, globalPos);
         return values;
     }

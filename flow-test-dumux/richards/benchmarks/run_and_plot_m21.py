@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 
 import sys
 import numpy as np
 import subprocess
 
 # Run benchmark M2.1 infiltration scenarios
-subprocess.run(["./benchmarks", "params_infiltration_sand.input"])
-subprocess.run(["./benchmarks", "params_infiltration_loam.input"])
-subprocess.run(["./benchmarks", "params_infiltration_clay.input"])
+subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_sand.input"])
+subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_loam.input"])
+subprocess.run(["./test_richards_benchmark_tpfa", "params_infiltration_clay.input"])
 
 try:
     import matplotlib.pyplot as plt

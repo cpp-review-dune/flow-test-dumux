@@ -1,21 +1,9 @@
 // -*- mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 // vi: set et ts=4 sw=4 sts=4:
-/*****************************************************************************
- *   See the file COPYING for full copying permissions.                      *
- *                                                                           *
- *   This program is free software: you can redistribute it and/or modify    *
- *   it under the terms of the GNU General Public License as published by    *
- *   the Free Software Foundation, either version 3 of the License, or       *
- *   (at your option) any later version.                                     *
- *                                                                           *
- *   This program is distributed in the hope that it will be useful,         *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- *   GNU General Public License for more details.                            *
- *                                                                           *
- *   You should have received a copy of the GNU General Public License       *
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *****************************************************************************/
+//
+// SPDX-FileCopyrightInfo: Copyright © DuMux Project contributors, see AUTHORS.md in root folder
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
 
 #ifndef DUMUX_RICHARDS_ANNULUS_PROBLEM_HH
 #define DUMUX_RICHARDS_ANNULUS_PROBLEM_HH
@@ -133,9 +121,7 @@ public:
             return exactSolution(globalPos);
         else
         {
-            PrimaryVariables values(initialPressure_);
-            values.setState(Indices::bothPhases);
-            return values;
+            return { initialPressure_ };
         }
     }
 
@@ -167,9 +153,7 @@ public:
             - A*mu_/(2*M_PI*k_)*std::log(r/innerRadius_)
             + source_*0.25*(r*r - ri2)*mu_/k_;
 
-        PrimaryVariables priVars(applyInverseKirchhoffTransformation_(psi));
-        priVars.setState(Indices::bothPhases);
-        return priVars;
+        return { applyInverseKirchhoffTransformation_(psi) };
     }
 
     PrimaryVariables exactSolution(const GlobalPosition& globalPos) const
@@ -194,8 +178,8 @@ public:
             for (const auto& scv : scvs(fvGeometry))
             {
                 const auto& volVars = elemVolVars[scv];
-                totalWaterVolume += Extrusion::volume(scv)*volVars.porosity()*volVars.saturation(0);
-                refWaterVolume += Extrusion::volume(scv)*volVars.porosity()*initialSaturation;
+                totalWaterVolume += Extrusion::volume(fvGeometry, scv)*volVars.porosity()*volVars.saturation(0);
+                refWaterVolume += Extrusion::volume(fvGeometry, scv)*volVars.porosity()*initialSaturation;
             }
         }
 
@@ -223,8 +207,8 @@ public:
             {
                 const auto& volVars = elemVolVars[scv];
                 const auto& oldVolVars = oldElemVolVars[scv];
-                storageDerivative[scv.dofIndex()] += Extrusion::volume(scv)*(volVars.saturation(0) - oldVolVars.saturation(0))/dt;
-                volumes[scv.dofIndex()] += Extrusion::volume(scv);
+                storageDerivative[scv.dofIndex()] += Extrusion::volume(fvGeometry, scv)*(volVars.saturation(0) - oldVolVars.saturation(0))/dt;
+                volumes[scv.dofIndex()] += Extrusion::volume(fvGeometry, scv);
             }
         }
 
